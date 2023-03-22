@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - JBD.WEB</title>
+	@*  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/JBD.WEB.styles.css" asp-append-version="true" />*@
+
+	<link rel="shortcut icon" href="@KTTheme.GetFavicon()" />
+
+	<!--begin::Fonts-->
+	@foreach (string font in KTTheme.GetFonts())
+	{
+		<link rel="stylesheet" href="@font" />
+	}
+	<!--end::Fonts-->
+	<!--begin::Vendor Stylesheets(optional)-->
+	@foreach (string file in KTTheme.GetVendors("Css"))
+	{
+		<link rel="stylesheet" type="text/css" href="@file" />
+	}
+	<!--end::Vendor Stylesheets-->
+	<!--begin::Global Stylesheets(mandatory)-->
+	@foreach (string file in KTTheme.GetGlobalAssets("Css"))
+	{
+		<link rel="stylesheet" type="text/css" href="@file" />
+	}
+	<!--end::Global Stylesheets-->
+	<!--begin::Custom Stylesheets(optional)-->
+	@foreach (string file in KTTheme.GetCssFiles())
+	{
+		<link rel="stylesheet" type="text/css" href='@KTTheme.GetAssetPath(file)' />
+	}
+	<!--end::Custom Stylesheets-->
+</head>
+<!body @Html.Raw(KTTheme.PrintHtmlAttributes("body")) class='@KTTheme.PrintHtmlClasses("body")'>
+<!--begin::Root-->
+<div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+    <!--begin::Page-->
+    <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+        <partial name='~/Views/Partials/SidebarLayout/_header.cshtml' />
+        <!--begin::Wrapper-->
+        <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+            <partial name='~/Views/Partials/SidebarLayout/_sidebar.cshtml' />
+            <!--begin::Main-->
+            <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+                <!--begin::Content wrapper-->
+                <div class="d-flex flex-column flex-column-fluid">
+                    <partial name='~/Views/Partials/SidebarLayout/_toolbar.cshtml' />
+                    <!--begin::Content-->
+                    <div id="kt_app_content" class="app-content flex-column-fluid">
+                        <!--begin::Content container-->
+                        <div id="kt_app_content_container" class="app-container container-fluid">
+                            @RenderBody()
+                        </div>
+                        <!--end::Content container-->
+                    </div>
+                    <!--end::Content-->
+                </div>
+                <!--end::Content wrapper-->
+                <partial name='~/Views/Partials/SidebarLayout/_footer.cshtml' />
+            </div>
+            <!--end:::Main-->
+        </div>
+        <!--end::Wrapper-->
+    </div>
+    <!--end::Page-->
+</div>
+<!--end::Root-->
+
+<partial name="~/Views/Partials/_Drawers.cshtml" />
+<partial name="~/Views/Partials/_Modals.cshtml" />
+<partial name="~/Views/Partials/_Scrolltop.cshtml" />
+@*  <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>*@
+<!--begin::Global Javascript(mandatory)-->
+@foreach (string file in KTTheme.GetGlobalAssets("Js"))
+{
+    <script src="@file"></script>
+}
+<!--end::Global Javascript-->
+
+<!--begin::Vendors Javascript(optional)-->
+@foreach (string file in KTTheme.GetVendors("Js"))
+{
+    <script src="@file"></script>
+}
+<!--end::Vendors Javascript-->
+
+<!--begin::Custom Javascript(optional)-->
+@foreach (string file in KTTheme.GetJavascriptFiles())
+{
+    <script src='@KTTheme.GetAssetPath(file)'></script>
+}
+<!--end::Custom Javascript-->
+
+@await RenderSectionAsync("Scripts", required: false)
+</!body>
+</html>
+
+
+@*@{
+	// Master layout
+	//Layout = "~/Views/Layout/Master.cshtml";
+
+	// Layout options
+	KTTheme.AddHtmlAttribute("body", "data-kt-app-layout", "dark-sidebar");
+	KTTheme.AddHtmlAttribute("body", "data-kt-app-header-fixed", "true");
+	KTTheme.AddHtmlAttribute("body", "data-kt-app-sidebar-fixed", "true");
+	KTTheme.AddHtmlAttribute("body", "data-kt-app-sidebar-hoverable", "true");
+	KTTheme.AddHtmlAttribute("body", "data-kt-app-sidebar-push-header", "true");
+	KTTheme.AddHtmlAttribute("body", "data-kt-app-sidebar-push-toolbar", "true");
+	KTTheme.AddHtmlAttribute("body", "data-kt-app-sidebar-push-footer", "true");
+	KTTheme.AddHtmlAttribute("body", "data-kt-app-toolbar-enabled", "true");
+	KTTheme.AddHtmlClass("body", "app-default");
+
+	// Global vendors and javascript files
+	KTTheme.AddVendor("datatables");
+	KTTheme.AddJavascriptFile("js/widgets.bundle.js");
+	KTTheme.AddJavascriptFile("js/custom/apps/chat/chat.js");
+	KTTheme.AddJavascriptFile("js/custom/utilities/modals/upgrade-plan.js");
+	KTTheme.AddJavascriptFile("js/custom/utilities/modals/create-app.js");
+	KTTheme.AddJavascriptFile("js/custom/utilities/modals/users-search.js");
+	KTTheme.AddJavascriptFile("js/custom/utilities/modals/new-target.js");
+}*@
+

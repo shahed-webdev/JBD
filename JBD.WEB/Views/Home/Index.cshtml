@@ -1,0 +1,55 @@
+﻿@model JBD.ViewModel.Modules.Auth.LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+    //Layout = "_Layout";
+    KTTheme.AddHtmlAttribute("body", "data-kt-app-layout", "dark-sidebar");
+    KTTheme.AddHtmlClass("body", "app-default");
+}
+
+<div class="container">
+    <div class="row">
+        <!--begin::Body-->
+        <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1">
+            <!--begin::Form-->
+            <div class="d-flex flex-center flex-column flex-lg-row-fluid">
+                <div class="w-lg-500px p-10">
+                    <form id="account" class="form w-100" asp-route-returnUrl="@ViewBag.ReturnUrl" asp-controller="Home" asp-action="Index" method="post">
+                        <div class="text-center mb-11">
+                            <!--begin::Title-->
+                            <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
+                            <!--end::Title-->
+                        </div>
+                   
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="fv-row mb-8">
+                            <input asp-for="UserName" class="form-control" autocomplete="username" aria-required="true"/>
+                            <label asp-for="UserName" class="form-label"></label>
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="fv-row mb-8">
+                            <input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true"/>
+                            <label asp-for="Password" class="form-label"></label>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        @*<div>
+                            <div class="checkbox">
+                                <label asp-for="RememberMe" class="form-label">
+                                    <input class="form-check-input" asp-for="RememberMe"/>
+                                    @Html.DisplayNameFor(m => m.RememberMe)
+                                </label>
+                            </div>
+                        </div>*@
+                        <div>
+                            <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}
