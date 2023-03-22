@@ -1,28 +1,9 @@
 ﻿@{
-	ViewData["Title"] = "Admin Dashboard";
+	ViewData["Title"] = "Dashboard";
     Layout = "_AdminLayout";
 	KTTheme.AddVendors(new string[] { "amcharts", "amcharts-maps", "amcharts-stock" });
-
-    // Layout options
-    KTTheme.AddHtmlAttribute("body", "data-kt-app-layout", "dark-sidebar");
-    KTTheme.AddHtmlAttribute("body", "data-kt-app-header-fixed", "true");
-    KTTheme.AddHtmlAttribute("body", "data-kt-app-sidebar-fixed", "true");
-    KTTheme.AddHtmlAttribute("body", "data-kt-app-sidebar-hoverable", "true");
-    KTTheme.AddHtmlAttribute("body", "data-kt-app-sidebar-push-header", "true");
-    KTTheme.AddHtmlAttribute("body", "data-kt-app-sidebar-push-toolbar", "true");
-    KTTheme.AddHtmlAttribute("body", "data-kt-app-sidebar-push-footer", "true");
-    KTTheme.AddHtmlAttribute("body", "data-kt-app-toolbar-enabled", "true");
-    KTTheme.AddHtmlClass("body", "app-default");
-
-    // Global vendors and javascript files
-    KTTheme.AddVendor("datatables");
-    KTTheme.AddJavascriptFile("js/widgets.bundle.js");
-    KTTheme.AddJavascriptFile("js/custom/apps/chat/chat.js");
-    KTTheme.AddJavascriptFile("js/custom/utilities/modals/upgrade-plan.js");
-    KTTheme.AddJavascriptFile("js/custom/utilities/modals/create-app.js");
-    KTTheme.AddJavascriptFile("js/custom/utilities/modals/users-search.js");
-    KTTheme.AddJavascriptFile("js/custom/utilities/modals/new-target.js");
 }
+
 <!--begin::Row-->
 <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
 	<!--begin::Col-->

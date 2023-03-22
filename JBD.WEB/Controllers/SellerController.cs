@@ -8,5 +8,11 @@ namespace JBD.WEB.Controllers
         {
             return View();
         }
+
+        public IActionResult CsvDataUpload()
+        {
+            return View();
+        }
+        
     }
 }
