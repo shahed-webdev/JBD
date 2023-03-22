@@ -9,10 +9,7 @@ namespace JBD.WEB.Controllers
     {
         public IActionResult Index()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userName = User.Identity.Name;
-
-            return View();
+           return View();
         }
     }
 }
