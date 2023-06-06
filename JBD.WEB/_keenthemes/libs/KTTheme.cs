@@ -6,7 +6,7 @@ public class KTTheme: IKTTheme
     // Theme variables
     private bool _modeSwitchEnabled;
 
-    private string _modeDefault = "dark";
+    private string _modeDefault = "light";
 
     private string _direction = "ltr";
 

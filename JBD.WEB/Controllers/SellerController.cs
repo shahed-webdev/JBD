@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JBD.DATA.Enums;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using JBD.ViewModel.Modules.Auth;
 
 namespace JBD.WEB.Controllers
 {
@@ -8,31 +13,6 @@ namespace JBD.WEB.Controllers
         {
             return View();
         }
-
-        public IActionResult CsvDataUpload()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult CsvDataUpload(IFormFile? file)
-        {
-            if (file == null) return BadRequest();
-
-            var data = new List<string>();
-            using (var reader = new StreamReader(file.OpenReadStream()))
-            {
-                while (reader.Peek() >= 0)
-                {
-                    var line = reader.ReadLine();
-                    if (!string.IsNullOrEmpty(line))
-                        data.Add(line);
-
-                    // do something with the line of data
-                }
-            }
-
-            return Ok(data);
-        }
+        
     }
 }

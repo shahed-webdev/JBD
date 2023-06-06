@@ -4,7 +4,7 @@
     "LayoutDir": "~/Views/Shared/_AdminLayout",
     "Direction": "ltr",
     "ModeSwitchEnabled": true,
-    "ModeDefault": "dark",
+    "ModeDefault": "light",
     "AssetsDir": "assets/",
     "Assets": {
       "Favicon": "media/logos/favicon.ico",
