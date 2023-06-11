@@ -16,7 +16,17 @@ namespace JBD.DATA
         {
         }
 
-        public virtual DbSet<UserRegistration> UserRegistration { get; set; } = null!;
+        public virtual DbSet<UserRegistration> UserRegistrations { get; set; } = null!;
+        public virtual DbSet<Product> Products { get; set; } = null!;
+
+        public virtual DbSet<ProductImageLink> ProductImageLinks { get; set; } = null!;
+
+        //public virtual DbSet<ProductCategory> ProductCategories { get; set; } = null!;
+       
+        public virtual DbSet<ExcludeKeyword> ExcludeKeywords { get; set; } = null!;
+
+        public virtual DbSet<YahooStoreSetting> YahooStoreSettings { get; set; } = null!;
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -25,6 +35,11 @@ namespace JBD.DATA
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new UserRegistrationConfiguration());
+            builder.ApplyConfiguration(new ProductConfiguration());
+            builder.ApplyConfiguration(new ProductImageLinkConfiguration());
+            builder.ApplyConfiguration(new ExcludeKeywordConfiguration());
+            builder.ApplyConfiguration(new YahooStoreSettingConfiguration());
+
             base.OnModelCreating(builder);
             builder.SeedRoleData();
             builder.SeedSuperAdminData();

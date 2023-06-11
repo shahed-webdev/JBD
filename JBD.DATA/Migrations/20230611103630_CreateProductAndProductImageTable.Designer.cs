@@ -4,6 +4,7 @@ using JBD.DATA;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JBD.DATA.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230611103630_CreateProductAndProductImageTable")]
+    partial class CreateProductAndProductImageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,34 +23,6 @@ namespace JBD.DATA.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("JBD.DATA.Models.ExcludeKeyword", b =>
-                {
-                    b.Property<int>("ExcludeKeywordId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExcludeKeywordId"), 1L, 1);
-
-                    b.Property<string>("Keyword")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("KeywordType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("UserRegistrationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ExcludeKeywordId");
-
-                    b.HasIndex("UserRegistrationId");
-
-                    b.ToTable("ExcludeKeyword", (string)null);
-                });
 
             modelBuilder.Entity("JBD.DATA.Models.Product", b =>
                 {
@@ -264,73 +238,6 @@ namespace JBD.DATA.Migrations
                         });
                 });
 
-            modelBuilder.Entity("JBD.DATA.Models.YahooStoreSetting", b =>
-                {
-                    b.Property<int>("YahooStoreSettingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("YahooStoreSettingId"), 1L, 1);
-
-                    b.Property<string>("ApprovalEmailTemplate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CancellationEmailTemplate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClientID")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmailSignature")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Publickey")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("Secret")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("ShippingEmailTemplate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StoreId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("StoreName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<int>("UserRegistrationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Version")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("YahooStoreSettingId");
-
-                    b.HasIndex("UserRegistrationId");
-
-                    b.ToTable("YahooStoreSetting", (string)null);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -481,9 +388,9 @@ namespace JBD.DATA.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "AUTHORITY@GMAIL.COM",
                             NormalizedUserName = "SUPERADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAlDEy0HawJRWaYlNSO6u6+ZwER/1r+69XWneMVZcV7EL9t9X4bhVFeve97q6xKRYQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECrssfmC8igfdzLfexuoXfGlyUEjpyxkEWpOwNpkmDhhZ65fZAYQzHmddh16WgRV/Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "74700bb1-0e70-4823-a9a7-045209e1183f",
+                            SecurityStamp = "1c564bec-3dc9-47d2-9f74-27bef9e4fb65",
                             TwoFactorEnabled = false,
                             UserName = "SuperAdmin"
                         });
@@ -577,17 +484,6 @@ namespace JBD.DATA.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("JBD.DATA.Models.ExcludeKeyword", b =>
-                {
-                    b.HasOne("JBD.DATA.Models.UserRegistration", "UserRegistration")
-                        .WithMany()
-                        .HasForeignKey("UserRegistrationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserRegistration");
-                });
-
             modelBuilder.Entity("JBD.DATA.Models.Product", b =>
                 {
                     b.HasOne("JBD.DATA.Models.UserRegistration", "UserRegistration")
@@ -609,17 +505,6 @@ namespace JBD.DATA.Migrations
                         .HasConstraintName("FK_ProductImageLink_Product");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("JBD.DATA.Models.YahooStoreSetting", b =>
-                {
-                    b.HasOne("JBD.DATA.Models.UserRegistration", "UserRegistration")
-                        .WithMany()
-                        .HasForeignKey("UserRegistrationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserRegistration");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
