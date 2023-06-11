@@ -19,8 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JBD.DATA\JBD.DATA.csproj" />
-    <ProjectReference Include="..\JBD.ViewModels\JBD.ViewModel.csproj" />
+    <ProjectReference Include="..\JBD.Service\JBD.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JBD.ViewModel", "JBD.ViewMo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Keepa.NET-Core", "Keepa.NET-Core\Keepa.NET-Core.csproj", "{F4F2E36F-58B8-461D-BE9C-C25A38BE4E1A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JBD.Service", "JBD.Service\JBD.Service.csproj", "{161763A4-B65D-4108-920F-F818B6646703}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F4F2E36F-58B8-461D-BE9C-C25A38BE4E1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4F2E36F-58B8-461D-BE9C-C25A38BE4E1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4F2E36F-58B8-461D-BE9C-C25A38BE4E1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{161763A4-B65D-4108-920F-F818B6646703}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{161763A4-B65D-4108-920F-F818B6646703}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{161763A4-B65D-4108-920F-F818B6646703}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{161763A4-B65D-4108-920F-F818B6646703}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
