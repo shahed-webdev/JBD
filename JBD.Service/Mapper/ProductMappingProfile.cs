@@ -2,7 +2,7 @@
 using JBD.DATA.Models;
 using JBD.ViewModel;
 
-namespace JBD.WEB.Mapping;
+namespace JBD.Service;
 
 public class ProductMappingProfile : Profile
 {

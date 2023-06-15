@@ -17,7 +17,7 @@ namespace JBD.WEB
             var builder = WebApplication.CreateBuilder(args);
 
             // Add AutoMapper
-            builder.Services.AddAutoMapper(typeof(Program).Assembly);
+            builder.Services.AddAutoMapper(typeof(ProductMappingProfile).Assembly);
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
