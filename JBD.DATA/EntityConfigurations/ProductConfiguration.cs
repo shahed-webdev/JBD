@@ -22,6 +22,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(e=> e.ShippingFee).HasPrecision(18, 2);
         builder.Property(e=> e.Size).HasPrecision(18, 2);
         builder.Property(e=> e.Weight).HasPrecision(18, 2);
+        builder.Property(e=> e.AdditionalShippingFee).HasPrecision(18, 2);
        
         builder.Property(e => e.CreatedAt)
             .HasColumnType("datetime")

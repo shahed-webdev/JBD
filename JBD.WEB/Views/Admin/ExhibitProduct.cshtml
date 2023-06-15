@@ -1,0 +1,80 @@
+﻿@using JBD.ViewModel
+@model IEnumerable<ProductVM>
+
+@{
+    ViewBag.Title = "Exhibit Product Search";
+    Layout = "_AdminLayout";
+    ViewData["ActiveMenu"] = "ExhibitProduct";
+    ViewData["PageHeading"] = "Exhibit Products";
+    ViewData["PageHreadcrumb"] = "Product - Exhibit";
+}
+<div class="card mb-5 mb-xl-8">
+    <!--begin::Body-->
+	<div class="card-body py-3">
+		<!--begin::Table container-->
+		<div class="table-responsive">
+			<!--begin::Table-->
+			<table class="table align-middle gs-0 gy-4 table-bordered">
+				<!--begin::Table head-->
+				<thead>
+					<tr class="fw-bold text-muted bg-light">
+                        <th class="ps-4 min-w-125px rounded-start">Product image</th>
+						<th class="min-w-125px">Product Name</th>
+						<th class="min-w-125px">Category/Size/Weight</th>
+						<th class="min-w-200px">Pricing Information</th>
+						<th class="min-w-150px">Amazon Information</th>
+						<th class="min-w-200px text-end rounded-end"></th>
+					</tr>
+				</thead>
+				<!--end::Table head-->
+				<!--begin::Table body-->
+                <tbody>
+                @foreach (var product in Model)
+                {
+                <tr>
+                    <td class="text-center">
+                                <img src="@product.ImageLink" class="h-100px align-self-end" alt="" />
+                    </td>
+                     <td class ="text-dark fw-bold  d-block fs-7">
+                         <span class="d-block">ASIN: @product.Asin</span>
+                         <span class="d-block">Product code: @product.ProductCode</span>
+                         <span class ="d-block">Brand: @product.Brand</span>
+                         <span class="d-block">@product.ProductName</span>
+                    </td>
+                    <td>
+                                <span class="d-block">Category:  @product.CategoryId</span>
+                                <span class="d-block"> @product.Category</span>
+                                <span class="d-block">Rank:  @product.Rank</span>
+                                <span class="d-block">Size (cm):  @product.Size</span>
+                                <span class="d-block">Weight (kg):  @product.Weight</span>
+                     </td>
+                    <td>
+                                <span class="d-block">Purchase price: @product.PurchasePrice yen</span>
+                                <span class="d-block">Sales price: @product.SalesPrice  yen</span>
+                                <span class="d-block">Shipping fee: @product.ShippingFee  yen</span>
+                                <span class="d-block">Fee: @product.AdditionalShippingFee  yen</span>
+                                <span class="d-block">Gross profit: @product.GrossProfit  yen</span>
+                    </td>
+                    <td>
+                                <span class="d-block">Number of times sold: @product.NumberOfTimeSold</span>
+                        
+                        <a href="@product.AmazonJpLink" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6"> Amazon JP</a>
+                        <a href="@product.OtherPurchasingSiteLink" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6"> Other purchasing site</a>
+                        <a href="@product.YahooLink" class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6"> Yahoo</a>
+                        
+                    </td>
+                            <td class="text-center">
+                        <a href="#" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">View</a>
+                        <a href="#" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4">Edit</a>
+                    </td>
+                </tr>
+                }
+                </tbody>
+				<!--end::Table body-->
+			</table>
+			<!--end::Table-->
+		</div>
+		<!--end::Table container-->
+	</div>
+	<!--begin::Body-->
+</div>

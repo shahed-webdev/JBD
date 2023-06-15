@@ -1,43 +1,9 @@
-﻿namespace JBD.DATA.Models;
+﻿namespace JBD.ViewModel;
 
-
-//"productType": Integer,
-//    "asin": String,
-//    "title": String,
-//    "lastPriceChange": Integer,
-//    "imagesCSV": String,
-//    "rootCategory": Integer,
-//    "categories": Long array,
-//    "categoryTree": Object array,
-//    "manufacturer": String,
-//    "brand": String,
-//    "publicationDate": Integer,
-//    "releaseDate": Integer,
-//    "model": String,
-//    "color": String,
-//    "size": String,
-//    "edition": String,
-//    "format": String,
-//    "features": String array,
-//    "description": String,
-//    "packageHeight": Integer,
-//    "packageLength": Integer,
-//    "packageWidth": Integer,
-//    "packageWeight": Integer,
-//    "packageQuantity": Integer,
-//    "itemHeight": Integer,
-//    "itemLength": Integer,
-//    "itemWidth": Integer,
-//    "itemWeight": Integer,
-//    "isAdultProduct": Boolean,
-//    "fbaFees": Object,
-
-
-
-public class Product
+public class ProductVM
 {
     public int ProductId { get; set; }
-    public int UserRegistrationId { get; set; }
+
     //Product info
     public string Asin { get; set; }
     public string ProductCode { get; set; }
@@ -64,7 +30,6 @@ public class Product
     public string? OtherPurchasingSiteLink { get; set; }
     public string? YahooLink { get; set; }
 
-        
     //Addition/Update date
     public DateTime RegistrationDate { get; set; }
     public DateTime CreatedAt { get; set; }
@@ -79,8 +44,5 @@ public class Product
     public string? Option { get; set; }
     public string? ProductInformation { get; set; }
     public string? StoreCategory { get; set; }
-     
-
-    public UserRegistration UserRegistration { get; set; } = null!;
-    public virtual ICollection<ProductImageLink> ProductImageLinks { get; set; }
+    public string? ImageLink { get; set;}
 }

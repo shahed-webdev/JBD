@@ -1,4 +1,7 @@
+using AutoMapper;
 using JBD.DATA;
+using JBD.Service;
+using JBD.Service.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +15,9 @@ namespace JBD.WEB
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Add AutoMapper
+            builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
@@ -58,6 +64,12 @@ namespace JBD.WEB
 
 
 
+            builder.Services.AddScoped<IUserRegistrationRepository, UserRegistrationRepository>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+
+
+
             builder.Services.AddScoped<IKTTheme, KTTheme>();
             builder.Services.AddSingleton<IKTBootstrapBase, KTBootstrapBase>();
 
@@ -68,6 +80,10 @@ namespace JBD.WEB
             KTThemeSettings.init(configuration);
 
             var app = builder.Build();
+
+            // Configure AutoMapper
+            var mapper = app.Services.GetRequiredService<IMapper>();
+            mapper.ConfigurationProvider.AssertConfigurationIsValid();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

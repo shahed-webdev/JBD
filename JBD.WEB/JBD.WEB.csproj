@@ -33,4 +33,16 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mapping\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Admin\ExhibitProduct.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Admin\ExhibitProduct.cshtml" />
+  </ItemGroup>
+
 </Project>

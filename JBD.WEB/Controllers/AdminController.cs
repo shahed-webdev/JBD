@@ -1,17 +1,25 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using JBD.Service;
 
 namespace JBD.WEB.Controllers
 {
     [Authorize]
     public class AdminController : Controller
     {
+        private readonly IProductService _productService;
+
+        public AdminController(IProductService productService)
+        {
+            _productService = productService;
+        }
+
         public IActionResult Index()
         {
            return View();
         }
-        public IActionResult CsvDataUpload()
+        public async Task<IActionResult> CsvDataUpload()
         {
             return View();
         }
@@ -35,6 +43,12 @@ namespace JBD.WEB.Controllers
             }
 
             return Ok(data);
+        }
+
+        public async Task<IActionResult> ExhibitProduct()
+        {
+            var products = await _productService.FetchProductsAsync(User.Identity?.Name);
+            return View(products);
         }
     }
 }
