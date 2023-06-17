@@ -15,7 +15,7 @@ public class ProductService: IProductService
     public async Task<List<ProductVM>> FetchProductsAsync(string userName)
     {
         var userId = await _userRegistrationRepository.GetUserRegistrationIdByUserNameAsync(userName);
-        var products = await _productRepository.GetProductListByUserId(userId);
+        var products = await _productRepository.GetProductListByUserIdAsync(userId);
         return products;
     }
 }
