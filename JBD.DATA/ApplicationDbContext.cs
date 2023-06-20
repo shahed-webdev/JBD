@@ -24,6 +24,9 @@ namespace JBD.DATA
         //public virtual DbSet<ProductCategory> ProductCategories { get; set; } = null!;
        
         public virtual DbSet<ExcludeKeyword> ExcludeKeywords { get; set; } = null!;
+        public virtual DbSet<SettingProfitAmazon> SettingProfitAmazons { get; set; } = null!;
+        public virtual DbSet<SettingProfitRatio> SettingProfitRatios { get; set; } = null!;
+        public virtual DbSet<SettingShippingFeeRatio> SettingShippingFeeRatios { get; set; } = null!;
 
         public virtual DbSet<YahooStoreSetting> YahooStoreSettings { get; set; } = null!;
 
@@ -39,6 +42,9 @@ namespace JBD.DATA
             builder.ApplyConfiguration(new ProductImageLinkConfiguration());
             builder.ApplyConfiguration(new ExcludeKeywordConfiguration());
             builder.ApplyConfiguration(new YahooStoreSettingConfiguration());
+            builder.ApplyConfiguration(new SettingProfitAmazonConfiguration());
+            builder.ApplyConfiguration(new SettingProfitRatioConfiguration());
+            builder.ApplyConfiguration(new SettingShippingFeeRatioConfiguration());
 
             base.OnModelCreating(builder);
             builder.SeedRoleData();
