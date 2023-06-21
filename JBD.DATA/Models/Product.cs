@@ -50,6 +50,10 @@ public class Product
     public string? Category { get; set; }
     public string? Rank { get; set; }
     public decimal Size { get; set; }
+    public decimal ProductHeight { get; set; }
+    public decimal ProductLength { get; set; }
+    public decimal ProductWidth { get; set; }
+
     public decimal Weight { get; set; }
 
     //Pricing info

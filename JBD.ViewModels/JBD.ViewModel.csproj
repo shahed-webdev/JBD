@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Modules\Auth\" />
+    <Folder Include="Modules\Setting\" />
     <Folder Include="Modules\Product\" />
   </ItemGroup>
 

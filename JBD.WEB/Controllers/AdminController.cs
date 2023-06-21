@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using FluentResults.Extensions.AspNetCore;
 using JBD.Service;
 
 namespace JBD.WEB.Controllers
@@ -48,7 +49,8 @@ namespace JBD.WEB.Controllers
         public async Task<IActionResult> ExhibitProduct()
         {
             var products = await _productService.FetchProductsAsync(User.Identity?.Name);
-            return View(products);
+            //return products.ToActionResult();
+            return View(products.Value);
         }
     }
 }

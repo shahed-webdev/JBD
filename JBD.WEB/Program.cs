@@ -1,6 +1,7 @@
 using AutoMapper;
 using JBD.DATA;
 using JBD.Service;
+using JBD.Service.Modules.Setting;
 using JBD.Service.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -78,6 +79,14 @@ namespace JBD.WEB
                 builder.Services.AddScoped<IProductRepository, ProductRepository>();
                 builder.Services.AddScoped<IProductService, ProductService>();
                 builder.Services.AddScoped<IImageStorageService, LocalStorageImageStorageService>();
+
+                builder.Services.AddScoped<IExcludeKeywordRepository, ExcludeKeywordRepository>();
+
+                builder.Services.AddScoped<ISettingProfitAmazonRepository, SettingProfitAmazonRepository>();
+                builder.Services.AddScoped<ISettingProfitRatioRepository, SettingProfitRatioRepository>();
+                builder.Services.AddScoped<ISettingShippingFeeRatioRepository, SettingShippingFeeRatioRepository>();
+                builder.Services.AddScoped<ISettingService, SettingService>();
+               
 
 
 
