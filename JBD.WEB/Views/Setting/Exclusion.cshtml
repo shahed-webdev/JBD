@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Exclusion Settings";
+    ViewData["ActiveMenu"] = "Exclusion";
+    Layout = "_AdminLayout";
+
+    ViewData["PageHeading"] = "Exclusion Settings";
+    ViewData["PageHreadcrumb"] = "Settings - Exclusion";
+}
+
+<style>
+    .custom-textarea {
+        width: 500px; /* Adjust the width as needed */
+        height: 800px; /* Adjust the height as needed */
+        border-color: var(--bs-text-muted) !important; /* Adjust the border color as needed */
+    }
+</style>
+
+<div class="d-flex flex-column flex-md-row rounded border p-10" bis_skin_checked="1">
+    <ul class="nav nav-tabs nav-pills flex-row border-0 flex-md-column me-5 mb-3 mb-md-0 fs-6 min-w-lg-200px" role="tablist">
+        <!--begin::Excluded: ASINs-->
+        <li class="nav-item w-100" role="presentation">
+            <a class="nav-link w-100 btn btn-flex btn-active-light-success active" data-bs-toggle="tab" href="#kt_vtab_pane_1" aria-selected="false" role="tab" tabindex="-1">
+                <span class="d-flex flex-column align-items-start">
+                    <span class="fs-4 fw-bold">ASINs</span>
+                    <span class="fs-7">Excluded Keyword</span>
+                </span>
+            </a>
+        </li>
+        <!--end::Excluded: ASINs-->
+        <!--begin::Excluded: product name-->
+        <li class="nav-item w-100" role="presentation">
+            <a class="nav-link w-100 btn btn-flex btn-active-light-success" data-bs-toggle="tab" href="#kt_vtab_pane_2" aria-selected="false" role="tab" tabindex="-1">
+                <span class="d-flex flex-column align-items-start">
+                    <span class="fs-4 fw-bold">product name</span>
+                    <span class="fs-7">Excluded Keyword</span>
+                </span>
+            </a>
+        </li>
+        <!--end::Excluded: product name-->
+        <!--begin::Excluded: Brand-->
+        <li class="nav-item w-100" role="presentation">
+            <a class="nav-link w-100 btn btn-flex btn-active-light-success" data-bs-toggle="tab" href="#kt_vtab_pane_3" aria-selected="true" role="tab">
+                <span class="d-flex flex-column align-items-start">
+                    <span class="fs-4 fw-bold">Brand</span>
+                    <span class="fs-7">Excluded Keyword</span>
+                </span>
+            </a>
+        </li>
+        <!--end::Excluded: Brand-->
+        <!--begin::Excluded: Product Description-->
+        <li class="nav-item w-100" role="presentation">
+            <a class="nav-link w-100 btn btn-flex btn-active-light-success" data-bs-toggle="tab" href="#kt_vtab_pane_4" aria-selected="true" role="tab">
+                <span class="d-flex flex-column align-items-start">
+                    <span class="fs-4 fw-bold">Product Description</span>
+                    <span class="fs-7">Excluded Keyword</span>
+                </span>
+            </a>
+        </li>
+        <!--end::Excluded: Product Description-->
+        <!--begin::Excluded: Categories (Yahoo)-->
+        <li class="nav-item w-100" role="presentation">
+            <a class="nav-link w-100 btn btn-flex btn-active-light-success" data-bs-toggle="tab" href="#kt_vtab_pane_5" aria-selected="true" role="tab">
+                <span class="d-flex flex-column align-items-start">
+                    <span class="fs-4 fw-bold">Categories (Yahoo)</span>
+                    <span class="fs-7">Excluded Keyword</span>
+                </span>
+            </a>
+        </li>
+        <!--end::Excluded: Categories (Yahoo)-->
+    </ul>
+
+    <div class="tab-content" id="myTabContent" bis_skin_checked="1">
+        <!--begin::Excluded: ASINs-->
+        <div class="tab-pane fade show active" id="kt_vtab_pane_1" role="tabpanel" bis_skin_checked="1">
+            <div>
+                <span class="fs-4 fw-bold"> Excluded: ASINs</span>
+            </div>
+            <!--begin::Input group-->
+            <div class="input-group input-group-solid">
+                <textarea class="form-control custom-textarea" rows="15" cols="30" aria-label="With textarea"></textarea>
+            </div>
+            <!--end::Input group-->
+        </div>
+        <!--end::Excluded: ASINs-->
+        <!--begin::Excluded: product name-->
+        <div class="tab-pane fade" id="kt_vtab_pane_2" role="tabpanel" bis_skin_checked="1">
+            Tab Exclude: Keyword (product name)
+        </div>
+        <!--end::Excluded: product name-->
+        <!--begin::Excluded: Brand-->
+        <div class="tab-pane fade" id="kt_vtab_pane_3" role="tabpanel" bis_skin_checked="1">
+            Tab Exclude: Keyword Brand
+        </div>
+        <!--end::Excluded: Brand-->
+        <!--begin::Excluded: product Description-->
+        <div class="tab-pane fade" id="kt_vtab_pane_4" role="tabpanel" bis_skin_checked="1">
+            Tab Exclusions: Product Description
+        </div>
+        <!--end::Excluded: product Description-->
+        <!--begin::Excluded:Categories (Yahoo)-->
+        <div class="tab-pane fade" id="kt_vtab_pane_5" role="tabpanel" bis_skin_checked="1">
+            Tab Exclude: Categories (Yahoo)
+        </div>
+        <!--begin::Excluded: Categories (Yahoo)-->
+    </div>
+</div>
+@section Scripts {
+    @*<script src="myscript.js"></script>*@
+    <script>
+        // JavaScript code specific to this view
+    </script>
+}

@@ -1,0 +1,13 @@
+﻿@using JBD.ViewModel
+@model ProductVM
+
+@{
+    ViewBag.Title = "Product details";
+    ViewData["ActiveMenu"] = "ProductDetails";
+    Layout = "_AdminLayout";
+
+    ViewData["PageHeading"] = "Product details";
+    ViewData["PageHreadcrumb"] = "Product - Details";
+}
+
+<h3> @Model.ProductName</h3>

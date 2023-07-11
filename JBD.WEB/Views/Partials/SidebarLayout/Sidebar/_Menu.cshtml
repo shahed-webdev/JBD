@@ -24,23 +24,85 @@
 				<!--end:Menu link-->
 			</div>
             <!--end:Menu item-->
-            <!--begin:Menu item-->
-            <div class="menu-item">
-                <!--begin:Menu link-->
-                <a id="ExhibitProduct" class="menu-link" href="~/Admin/ExhibitProduct">
-                    <span class="menu-icon">@Html.Raw(KTTheme.GetSvgIcon("duotune/general/gen025.svg", "svg-icon svg-icon-2"))</span>
-                    <span class="menu-title">Exhibit Product</span>
-                </a>
-                <!--end:Menu link-->
+
+            <!--begin::Menu item-->
+            <div data-kt-menu-trigger="click" class="menu-item menu-sub-indention menu-accordion">
+                <!--begin::Menu link-->
+                <span class="menu-link py-3">
+                    <span class="menu-icon">@Html.Raw(KTTheme.GetSvgIcon("duotune/ecommerce/ecm002.svg", "svg-icon svg-icon-2"))</span>
+                    <span class="menu-title">Exhibit</span>
+                    <span class="menu-arrow"></span>
+                </span>
+                <!--end::Menu link-->
+                <!--begin::Menu sub-->
+                <div class="menu-sub menu-sub-accordion">
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a id="ExhibitProductTest" href="~/Admin/ExhibitProduct" class="menu-link">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Exhibit Product</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                </div>
+                <!--end::Menu sub-->
             </div>
-            <!--end:Menu item-->
+            <!--end::Menu item-->
+            
+            
+            <!--begin::Menu item-->
+            <div data-kt-menu-trigger="click" class="menu-item menu-sub-indention menu-accordion">
+                <!--begin::Menu link-->
+                <span class="menu-link py-3">
+                    <span class="menu-icon">@Html.Raw(KTTheme.GetSvgIcon("duotune/abstract/abs031.svg", "svg-icon svg-icon-2"))</span>
+                    <span class="menu-title">Setting</span>
+                    <span class="menu-arrow"></span>
+                </span>
+                <!--end::Menu link-->
+                <!--begin::Menu sub-->
+                <div class="menu-sub menu-sub-accordion">
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a id="ProfitCalculation" href="~/Setting/ProfitCalculation" class="menu-link">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Profit Calculation Settings</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                </div>
+                <!--end::Menu sub-->
+                <!--begin::Menu sub-->
+                <div class="menu-sub menu-sub-accordion">
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a id="Exclusion" href="~/Setting/Exclusion" class="menu-link">
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Exclusion Settings</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                </div>
+                <!--end::Menu sub-->
+            </div>
+            <!--end::Menu item-->
         </div>
 		<!--end::Menu-->
 	</div>
 	<!--end::Menu wrapper-->
 </div>
 <!--end::sidebar menu-->
-
-    <script>
-        document.getElementById("@ViewBag.ActiveMenu").classList.add("active");
-    </script>
+<script>
+    document.getElementById("@ViewData["ActiveMenu"]").classList.add("active");
+</script>

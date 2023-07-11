@@ -52,5 +52,14 @@ namespace JBD.WEB.Controllers
             //return products.ToActionResult();
             return View(products.Value);
         }
+
+        public async Task<IActionResult> ProductDetails(int id)
+        {
+            var product = await _productService.GetProductByUserIdAsync(User.Identity?.Name, id);
+            //return products.ToActionResult();
+            return View(product.Value);
+        }
+
+
     }
 }
