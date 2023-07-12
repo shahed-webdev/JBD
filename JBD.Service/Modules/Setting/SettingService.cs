@@ -23,6 +23,24 @@ public class SettingService : ISettingService
         _settingShippingFeeRatioRepository = settingShippingFeeRatioRepository;
     }
 
+    public async Task<Result<List<ExcludeKeywordVM>>> GetExcludeKeywordsAsync(string userName)
+    {
+        try
+        {
+            var userId = await _userRegistrationRepository.GetUserRegistrationIdByUserNameAsync(userName);
+
+            if (userId == 0) return Result.Fail<List<ExcludeKeywordVM>>($"Not a valid user");
+
+            var keyWords = await _excludeKeywordRepository.GetAllAsync(userId);
+
+            return Result.Ok(keyWords);
+        }
+        catch (Exception e)
+        {
+            return Result.Fail<List<ExcludeKeywordVM>>(e.InnerException?.Message ?? e.Message);
+        }
+    }
+
     public async Task<Result<List<string>>> GetExcludeKeywordsByTypeAsync(string userName, ExcludeKeywordType type)
     {
         try

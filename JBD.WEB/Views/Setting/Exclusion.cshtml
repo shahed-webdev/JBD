@@ -1,4 +1,6 @@
-﻿@{
+﻿@using JBD.DATA.Enums
+@model IEnumerable<JBD.ViewModel.ExcludeKeywordVM>
+@{
     ViewBag.Title = "Exclusion Settings";
     ViewData["ActiveMenu"] = "Exclusion";
     Layout = "_AdminLayout";
@@ -9,14 +11,14 @@
 
 <style>
     .custom-textarea {
-        width: 500px; /* Adjust the width as needed */
-        height: 800px; /* Adjust the height as needed */
+        width: 500px !important; /* Adjust the width as needed */
+        height: 500px; /* Adjust the height as needed */
         border-color: var(--bs-text-muted) !important; /* Adjust the border color as needed */
     }
 </style>
 
 <div class="d-flex flex-column flex-md-row rounded border p-10" bis_skin_checked="1">
-    <ul class="nav nav-tabs nav-pills flex-row border-0 flex-md-column me-5 mb-3 mb-md-0 fs-6 min-w-lg-200px" role="tablist">
+    <ul class="nav nav-tabs nav-pills flex-row border-0 flex-md-column me-5 mb-3 mb-md-0 fs-6 min-w-lg-200px col-md-2" role="tablist">
         <!--begin::Excluded: ASINs-->
         <li class="nav-item w-100" role="presentation">
             <a class="nav-link w-100 btn btn-flex btn-active-light-success active" data-bs-toggle="tab" href="#kt_vtab_pane_1" aria-selected="false" role="tab" tabindex="-1">
@@ -69,37 +71,89 @@
         <!--end::Excluded: Categories (Yahoo)-->
     </ul>
 
-    <div class="tab-content" id="myTabContent" bis_skin_checked="1">
+    <div class="tab-content col-md-10" id="myTabContent" bis_skin_checked="1">
         <!--begin::Excluded: ASINs-->
         <div class="tab-pane fade show active" id="kt_vtab_pane_1" role="tabpanel" bis_skin_checked="1">
-            <div>
-                <span class="fs-4 fw-bold"> Excluded: ASINs</span>
-            </div>
+            <form method="post" action="Exclusion">
+                <div class="form-group">
+                    <label class="form-label fs-4 fw-bold">Excluded: ASINs</label>
+
+                    <input type="hidden" name="type" value="@ExcludeKeywordType.Asin.ToString()" />
+
+                    <textarea class="form-control" rows="15" name="keywords" aria-label="With textarea">@string.Join("\n", @Model.Where(k=> k.KeywordType == ExcludeKeywordType.Asin ).Select(k=> k.Keyword))</textarea>
+
+                    <button type="submit" id="btnAsin" class="btn btn-success mt-3">Save</button>
+                </div>
+            </form>
+
             <!--begin::Input group-->
             <div class="input-group input-group-solid">
-                <textarea class="form-control custom-textarea" rows="15" cols="30" aria-label="With textarea"></textarea>
             </div>
             <!--end::Input group-->
+            <div>
+            </div>
         </div>
         <!--end::Excluded: ASINs-->
         <!--begin::Excluded: product name-->
         <div class="tab-pane fade" id="kt_vtab_pane_2" role="tabpanel" bis_skin_checked="1">
-            Tab Exclude: Keyword (product name)
+            <form method="post" action="Exclusion">
+                <div class="form-group">
+                    <label class="form-label fs-4 fw-bold">Tab Exclude: Keyword (product name)</label>
+
+                    <input type="hidden" name="type" value="@ExcludeKeywordType.ProductName.ToString()" />
+
+                    <textarea class="form-control" rows="15" name="keywords" aria-label="With textarea">@string.Join("\n", @Model.Where(k=> k.KeywordType == ExcludeKeywordType.ProductName ).Select(k=> k.Keyword))</textarea>
+
+                    <button type="submit" id="btnAsin" class="btn btn-success mt-3">Save</button>
+                </div>
+            </form>
         </div>
         <!--end::Excluded: product name-->
         <!--begin::Excluded: Brand-->
         <div class="tab-pane fade" id="kt_vtab_pane_3" role="tabpanel" bis_skin_checked="1">
-            Tab Exclude: Keyword Brand
+            
+            <form method="post" action="Exclusion">
+                <div class="form-group">
+                    <label class="form-label fs-4 fw-bold">Tab Exclude: Keyword Brand</label>
+
+                    <input type="hidden" name="type" value="@ExcludeKeywordType.Brand.ToString()" />
+
+                    <textarea class="form-control" rows="15" name="keywords" aria-label="With textarea">@string.Join("\n", @Model.Where(k=> k.KeywordType == ExcludeKeywordType.Brand ).Select(k=> k.Keyword))</textarea>
+
+                    <button type="submit" id="btnAsin" class="btn btn-success mt-3">Save</button>
+                </div>
+            </form>
         </div>
         <!--end::Excluded: Brand-->
         <!--begin::Excluded: product Description-->
         <div class="tab-pane fade" id="kt_vtab_pane_4" role="tabpanel" bis_skin_checked="1">
-            Tab Exclusions: Product Description
+            <form method="post" action="Exclusion">
+                <div class="form-group">
+                    <label class="form-label fs-4 fw-bold">Tab Exclusions: Product Description</label>
+
+                    <input type="hidden" name="type" value="@ExcludeKeywordType.ProductDescription.ToString()" />
+
+                    <textarea class="form-control" rows="15" name="keywords" aria-label="With textarea">@string.Join("\n", @Model.Where(k=> k.KeywordType == ExcludeKeywordType.ProductDescription ).Select(k=> k.Keyword))</textarea>
+
+                    <button type="submit" id="btnAsin" class="btn btn-success mt-3">Save</button>
+                </div>
+            </form>
         </div>
         <!--end::Excluded: product Description-->
         <!--begin::Excluded:Categories (Yahoo)-->
         <div class="tab-pane fade" id="kt_vtab_pane_5" role="tabpanel" bis_skin_checked="1">
-            Tab Exclude: Categories (Yahoo)
+           
+            <form method="post" action="Exclusion">
+                <div class="form-group">
+                    <label class="form-label fs-4 fw-bold">Tab Exclude: Categories (Yahoo)</label>
+
+                    <input type="hidden" name="type" value="@ExcludeKeywordType.YahooCategory.ToString()" />
+
+                    <textarea class="form-control" rows="15" name="keywords" aria-label="With textarea">@string.Join("\n", @Model.Where(k=> k.KeywordType == ExcludeKeywordType.YahooCategory ).Select(k=> k.Keyword))</textarea>
+
+                    <button type="submit" id="btnAsin" class="btn btn-success mt-3">Save</button>
+                </div>
+            </form>
         </div>
         <!--begin::Excluded: Categories (Yahoo)-->
     </div>

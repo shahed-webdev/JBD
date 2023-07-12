@@ -6,6 +6,7 @@ namespace JBD.Service.Repository;
 
 public interface IExcludeKeywordRepository: IBaseRepository<ExcludeKeyword>
 {
+    Task<List<ExcludeKeywordVM>> GetAllAsync(int userRegistrationId);
     Task<List<string>> GetAllByTypeAsync(int userRegistrationId, ExcludeKeywordType type);
     Task AddKeywordsAsync(int userRegistrationId, ExcludeKeywordType type, List<string> keywords);
     Task DeleteKeywordsAsync(int userRegistrationId, ExcludeKeywordType type);

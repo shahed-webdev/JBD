@@ -8,6 +8,7 @@ public interface ISettingService
 {
 
     //-------------Setting Exclude Keywords--------
+    Task<Result<List<ExcludeKeywordVM>>> GetExcludeKeywordsAsync(string userName);
     Task<Result<List<string>>> GetExcludeKeywordsByTypeAsync(string userName, ExcludeKeywordType type);
     Task<Result> UpdateExcludeKeywordsByTypeAsync(string userName, ExcludeKeywordType type, List<string> keywords);
 
