@@ -21,6 +21,7 @@
 	KTTheme.AddJavascriptFile("js/custom/utilities/modals/create-app.js");
 	KTTheme.AddJavascriptFile("js/custom/utilities/modals/users-search.js");
 	KTTheme.AddJavascriptFile("js/custom/utilities/modals/new-target.js");
+
 }
 
 <!--begin::Root-->
@@ -60,5 +61,10 @@
 <partial name="~/Views/Partials/_Drawers.cshtml" />
 <partial name="~/Views/Partials/_Modals.cshtml" />
 <partial name="~/Views/Partials/_Scrolltop.cshtml" />
+
+@*@section Scripts {
+    <!--Add alpine-->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+}*@
 
 @await RenderSectionAsync("Scripts", required: false)

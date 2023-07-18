@@ -35,4 +35,18 @@ public class SettingController : Controller
 
         return RedirectToAction("Exclusion");
     }
+
+
+    public async Task<IActionResult> GetProfitRatioList()
+    {
+        var result = await _settingService.GetSettingProfitRatioListAsync(User.Identity?.Name);
+        
+        //var data = new List<object>
+        //{
+        //    new { id = 1, name = "John Doe", email = "john.doe@example.com" },
+        //    new { id = 2, name = "Jane Smith", email = "jane.smith@example.com" }
+        //};
+
+        return Json(result.Value);
+    }
 }

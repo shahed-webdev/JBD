@@ -6,3 +6,137 @@
     ViewData["PageHeading"] = "Profit Calculation Settings";
     ViewData["PageHreadcrumb"] = "Settings - Profit Calculation";
 }
+
+<div class="row">
+
+    <div class="col-lg-12 mb-1">
+        <div class="card">
+            <div class="card-body">
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 mb-1">
+        <div class="card">
+            <div class="card-body">
+                <span class="card-label fw-bold text-gray-800">Profit setting - Profit ratio or profit amount</span>
+                <div class="table-responsive">
+                    <table id="dataTable" x-data="loadData()" x-init="fetchData()" class="table table-bordered text-gray-900">
+                        <thead>
+                        <tr class="fw-bold fs-6 text-gray-800">
+                                <th>Amazon selling price</th>
+                                <th>Profit rate</th>
+                                <th>plus amount (yen)</th>
+                                <th>Negative amount (yen)</th>
+                                <th>Profit amount (yen)</th>
+                                <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <template x-for="(d, index) in data">
+                                <tr>
+                                <td>
+                                        <label x-show="!d.IsEditing" x-text="d.amazonSellingPrice"></label>
+                                        <input x-show="d.IsEditing" type="number" class="w-25" x-model="d.amazonSellingPrice">
+                                </td>
+                                <td>
+                                        <label x-show="!d.IsEditing" x-text="d.percentageWithPriceAndProfit"></label>
+                                        <input x-show="d.IsEditing" type="number" class="w-25" x-model="d.percentageWithPriceAndProfit">
+                                </td>
+                                <td>
+                                        <label x-show="!d.IsEditing" x-text="d.plusAmount"></label>
+                                        <input x-show="d.IsEditing" type="number" class="w-25" x-model="d.plusAmount">
+                                </td>
+                                <td>
+                                        <label x-show="!d.IsEditing" x-text="d.minusAmount"></label>
+                                        <input x-show="d.IsEditing" type="number" class="w-25" x-model="d.minusAmount">
+                                </td>
+                                    <td>
+                                        <label x-show="!d.IsEditing" x-text="d.profitAmount"></label>
+                                        <input x-show="d.IsEditing" type="number" class="w-25" x-model="d.profitAmount">
+                                    </td>
+                                    <td>
+                                        <a x-on:click="d.toggleIsEdit(d)" href="#" class="btn btn-icon btn-primary btn-sm"><i class="fas fa-edit fs-6"></i></a>
+                                    </td>
+                            </tr>
+                        </template>
+                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 mb-1">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr class="fw-bold fs-6 text-gray-800">
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Office</th>
+                            <th>Age</th>
+                            <th>Start date</th>
+                            <th>Salary</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Tiger Nixon</td>
+                            <td>System Architect</td>
+                            <td>Edinburgh</td>
+                            <td>61</td>
+                            <td>2011/04/25</td>
+                            <td>$320,800</td>
+                        </tr>
+                        <tr>
+                            <td>Garrett Winters</td>
+                            <td>Accountant</td>
+                            <td>Tokyo</td>
+                            <td>63</td>
+                            <td>2011/07/25</td>
+                            <td>$170,750</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!--Add alpine-->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script type="text/javascript">
+
+        function loadData() {
+            return {
+                data: [],
+                async fetchData() {
+                    const response = await fetch('/Setting/GetProfitRatioList');
+
+                    this.data = await response.json();
+
+                    this.data.forEach(function (element) {
+                        element.IsEditing = false;
+                    });
+                },
+
+                toggleIsEdit(row) {
+                    row.IsEditing = !row.IsEditing;
+
+                    console.log(row.IsEditing);
+                }
+        }
+    }
+        document.addEventListener('alpine:init', () => {
+            Alpine.start();
+        });
+
+    </script>
+}
+
