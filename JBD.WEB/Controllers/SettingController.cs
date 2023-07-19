@@ -40,12 +40,30 @@ public class SettingController : Controller
     public async Task<IActionResult> GetProfitRatioList()
     {
         var result = await _settingService.GetSettingProfitRatioListAsync(User.Identity?.Name);
-        
-        //var data = new List<object>
-        //{
-        //    new { id = 1, name = "John Doe", email = "john.doe@example.com" },
-        //    new { id = 2, name = "Jane Smith", email = "jane.smith@example.com" }
-        //};
+       
+        if (result.IsFailed)
+            return StatusCode(StatusCodes.Status500InternalServerError, result.Errors.First().Message);
+
+        return Json(result.Value);
+    }
+
+
+    public async Task<IActionResult> GetShippingFeeRatioList()
+    {
+        var result = await _settingService.GetSettingShippingFeeRatioListAsync(User.Identity?.Name);
+
+        if (result.IsFailed)
+            return StatusCode(StatusCodes.Status500InternalServerError, result.Errors.First().Message);
+
+        return Json(result.Value);
+    }
+
+    public async Task<IActionResult> GetProfitAmazon()
+    {
+        var result = await _settingService.GetSettingProfitAmazonAsync(User.Identity?.Name);
+
+        if (result.IsFailed)
+            return StatusCode(StatusCodes.Status500InternalServerError, result.Errors.First().Message);
 
         return Json(result.Value);
     }

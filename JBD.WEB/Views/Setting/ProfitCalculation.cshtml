@@ -10,13 +10,40 @@
 <div class="row">
     <div class="col-lg-12 mb-1">
         <div class="card">
-            <div class="card-body">
+            <div x-data="loadProfitAmazonData" class="card-body">
+                <span class="card-label fw-bold text-gray-800">Profit setting - Amazon points</span>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-floating mb-7">
+                            <input x-model="data.commission" class="form-control" id="floatingCommission" placeholder="Commission" />
+                            <label for="floatingCommission">Commission</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-floating mb-7">
+                            <input x-model="data.expense" class="form-control" id="floatingExpense" placeholder="Expense" />
+                            <label for="floatingExpense">Expense</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-floating mb-7">
+                            <input x-model="data.shippingUnitPrice" class="form-control" id="floatingShippingUnitPrice" placeholder="Shipping Unit Price" />
+                            <label for="floatingShippingUnitPrice">Shipping Unit Price</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-floating mb-7">
+                            <input x-model="data.minimumShippingFee" class="form-control" id="floatingMinimumShippingFee" placeholder="MinimumShippingFee" />
+                            <label for="floatingMinimumShippingFee">Minimum Shipping Fee</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-lg-6 mb-1">
         <div class="card">
-            <div x-data="loadData()" class="card-body">
+            <div x-data="loadProfitRatioData" class="card-body">
                 <span class="card-label fw-bold text-gray-800">Profit setting - Profit ratio or profit amount</span>
                 <div class="table-responsive">
                     <h6 x-show="gettingLoading">loading...</h6>
@@ -37,26 +64,27 @@
                                 <tr>
                                     <td>
                                         <label x-show="!d.IsEditing" x-text="d.amazonSellingPrice"></label>
-                                        <input x-show="d.IsEditing" type="number" class="w-25" x-model="d.amazonSellingPrice">
+                                        <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.amazonSellingPrice">
                                     </td>
                                     <td>
                                         <label x-show="!d.IsEditing" x-text="d.percentageWithPriceAndProfit"></label>
-                                        <input x-show="d.IsEditing" type="number" class="w-25" x-model="d.percentageWithPriceAndProfit">
+                                        <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.percentageWithPriceAndProfit">
                                     </td>
                                     <td>
                                         <label x-show="!d.IsEditing" x-text="d.plusAmount"></label>
-                                        <input x-show="d.IsEditing" type="number" class="w-25" x-model="d.plusAmount">
+                                        <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.plusAmount">
                                     </td>
                                     <td>
                                         <label x-show="!d.IsEditing" x-text="d.minusAmount"></label>
-                                        <input x-show="d.IsEditing" type="number" class="w-25" x-model="d.minusAmount">
+                                        <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.minusAmount">
                                     </td>
                                     <td>
                                         <label x-show="!d.IsEditing" x-text="d.profitAmount"></label>
-                                        <input x-show="d.IsEditing" type="number" class="w-25" x-model="d.profitAmount">
+                                        <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.profitAmount">
                                     </td>
                                     <td>
                                         <a x-on:click="toggleIsEdit(d)" href="#" class="btn btn-icon btn-primary btn-sm"><i class="fas fa-edit fs-6"></i></a>
+                                        <a href="#" class="btn btn-icon btn-danger btn-sm"><i class="fas fa-remove fs-6"></i></a>
                                     </td>
                                 </tr>
                             </template>
@@ -69,38 +97,43 @@
     </div>
     <div class="col-lg-6 mb-1">
         <div class="card">
-            <div class="card-body">
+            <div x-data="loadShippingFeeRatioData" class="card-body">
+                <span class="card-label fw-bold text-gray-800">Shipping fee setting</span>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
-                            <tr class="fw-bold fs-6 text-gray-800">
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                            </tr>
+                        <tr class="fw-bold fs-6 text-gray-800">
+                            <th>Size (total of 3 sides - CM)</th>
+                            <th>Weight (KG)</th>
+                            <th>plus amount (yen)</th>
+                            <th>Action</th>
+                        </tr>
                         </thead>
                         <tbody>
+                        <template x-for="(d, index) in data">
                             <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
+                                <td>
+                                    <label x-show="!d.IsEditing" x-text="d.size"></label>
+                                    <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.size">
+                                </td>
+                                <td>
+                                    <label x-show="!d.IsEditing" x-text="d.weight"></label>
+                                    <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.weight">
+                                </td>
+                                <td>
+                                    <label x-show="!d.IsEditing" x-text="d.amount"></label>
+                                    <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.amount">
+                                </td>
+                                <td>
+                                    <a x-on:click="toggleIsEdit(d)" href="#" class="btn btn-icon btn-primary btn-sm"><i class="fas fa-edit fs-6"></i></a>
+                                    <a href="#" class="btn btn-icon btn-danger btn-sm"><i class="fas fa-remove fs-6"></i></a>
+                                </td>
                             </tr>
-                            <tr>
-                                <td>Garrett Winters</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>63</td>
-                                <td>2011/07/25</td>
-                                <td>$170,750</td>
-                            </tr>
+                        </template>
                         </tbody>
                     </table>
+
+                    <h6 x-show="gettingLoading">loading...</h6>
                 </div>
             </div>
         </div>
@@ -113,7 +146,55 @@
 
     <script type="text/javascript">
 
-        function loadData() {
+        function loadProfitAmazonData() {
+            const createError = (status = 500, message = "an unknown error occurred") => {
+                const error = new Error(message);
+                error.status = status;
+
+                return error;
+            };
+
+            return {
+                gettingLoading: false,
+                data: {},
+                async fetchData() {
+                    this.gettingLoading = true;
+
+                    try {
+                        const response = await fetch('/Setting/GetProfitAmazon');
+
+                        if (!response.ok) {
+                            return createError(response.status, "error getting data");
+                        }
+
+                        const responseData = await response.json();
+                        console.log(responseData);
+
+                        this.data = responseData;
+
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    finally {
+                        this.gettingLoading = false;
+                    }
+                },
+
+
+                toggleIsEdit(row) {
+                    console.log(row);
+                    row.IsEditing = !row.IsEditing;
+
+                },
+
+                init() {
+                    this.fetchData();
+                }
+
+            }
+        }
+
+        function loadProfitRatioData() {
             const createError = (status = 500, message = "an unknown error occurred") => {
                 const error = new Error(message);
                 error.status = status;
@@ -145,7 +226,7 @@
                         });
 
                     } catch (error) {
-                        console.log(error)
+                        console.log(error);
                     }
                     finally{
                         this.gettingLoading = false;
@@ -160,6 +241,59 @@
                 },
 
                 init(){
+                    this.fetchData();
+                }
+
+            }
+        }
+
+        function loadShippingFeeRatioData() {
+            const createError = (status = 500, message = "an unknown error occurred") => {
+                const error = new Error(message);
+                error.status = status;
+
+                return error;
+            };
+
+            return {
+                gettingLoading: false,
+                data: [],
+                async fetchData() {
+                    this.gettingLoading = true;
+
+                    try {
+                        const response = await fetch('/Setting/GetShippingFeeRatioList');
+
+                        if (!response.ok) {
+                            return createError(response.status, "error getting data");
+                        }
+
+                        const responseData = await response.json();
+                        console.log(responseData);
+
+                        this.data = responseData.map(item => {
+                            return {
+                                ...item,
+                                IsEditing: false
+                            }
+                        });
+
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    finally {
+                        this.gettingLoading = false;
+                    }
+                },
+
+
+                toggleIsEdit(row) {
+                    console.log(row);
+                    row.IsEditing = !row.IsEditing;
+
+                },
+
+                init() {
                     this.fetchData();
                 }
 
