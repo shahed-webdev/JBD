@@ -23,7 +23,13 @@ public class LocalStorageImageStorageService : IImageStorageService
             throw new ArgumentException("Invalid file.");
         }
 
-        var fileName = Guid.NewGuid().ToString();
+        var fileExtension = Path.GetExtension(file.FileName).ToLower();
+        if (string.IsNullOrEmpty(fileExtension))
+        {
+            throw new ArgumentException("Invalid file extension.");
+        }
+
+        var fileName = Guid.NewGuid().ToString() + fileExtension;
         var filePath = Path.Combine(_storagePath, fileName);
 
         try

@@ -10,30 +10,63 @@
 <div class="row">
     <div class="col-lg-12 mb-1">
         <div class="card">
+            <div x-data="CalculatePrice" class="card-body">
+                <span class="card-label fw-bold text-gray-800">Product Selling Price Calculate </span>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-floating mb-7">
+                            <input x-model="price" class="form-control" id="floatingCommission" placeholder="Price" />
+                            <label for="floatingCommission">Price</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-floating mb-7">
+                            <input x-model="size" class="form-control" id="floatingExpense" placeholder=" Size (total of 3 sides - CM)" />
+                            <label for="floatingExpense">Size (total of 3 sides - CM)</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-floating mb-7">
+                            <input x-model="weight" class="form-control" id="floatingShippingUnitPrice" placeholder="Weight" />
+                            <label for="floatingShippingUnitPrice">Weight</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-floating mb-7">
+                            <button x-on:click="fetchData" class="btn btn-primary"><i class="fa-solid fa-calculator"></i> Calculate</button>
+                            <span x-text="result"></span>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="col-lg-12 mb-1">
+        <div class="card">
             <div x-data="loadProfitAmazonData" class="card-body">
                 <span class="card-label fw-bold text-gray-800">Profit setting - Amazon points</span>
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="form-floating mb-7">
-                            <input x-model="data.commission" class="form-control" id="floatingCommission" placeholder="Commission" />
+                            <input x-model="data.commission" class="form-control" id="floatingCommission" placeholder="Commission"/>
                             <label for="floatingCommission">Commission</label>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="form-floating mb-7">
-                            <input x-model="data.expense" class="form-control" id="floatingExpense" placeholder="Expense" />
+                            <input x-model="data.expense" class="form-control" id="floatingExpense" placeholder="Expense"/>
                             <label for="floatingExpense">Expense</label>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="form-floating mb-7">
-                            <input x-model="data.shippingUnitPrice" class="form-control" id="floatingShippingUnitPrice" placeholder="Shipping Unit Price" />
+                            <input x-model="data.shippingUnitPrice" class="form-control" id="floatingShippingUnitPrice" placeholder="Shipping Unit Price"/>
                             <label for="floatingShippingUnitPrice">Shipping Unit Price</label>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="form-floating mb-7">
-                            <input x-model="data.minimumShippingFee" class="form-control" id="floatingMinimumShippingFee" placeholder="MinimumShippingFee" />
+                            <input x-model="data.minimumShippingFee" class="form-control" id="floatingMinimumShippingFee" placeholder="MinimumShippingFee"/>
                             <label for="floatingMinimumShippingFee">Minimum Shipping Fee</label>
                         </div>
                     </div>
@@ -50,44 +83,44 @@
 
                     <table id="dataTable" class="table table-bordered text-gray-900">
                         <thead>
-                            <tr class="fw-bold fs-6 text-gray-800">
-                                <th>Amazon selling price</th>
-                                <th>Profit rate</th>
-                                <th>plus amount (yen)</th>
-                                <th>Negative amount (yen)</th>
-                                <th>Profit amount (yen)</th>
-                                <th>Action</th>
-                            </tr>
+                        <tr class="fw-bold fs-6 text-gray-800">
+                            <th>Amazon selling price</th>
+                            <th>Profit rate</th>
+                            <th>plus amount (yen)</th>
+                            <th>Negative amount (yen)</th>
+                            <th>Profit amount (yen)</th>
+                            <th>Action</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <template x-for="(d, index) in data">
-                                <tr>
-                                    <td>
-                                        <label x-show="!d.IsEditing" x-text="d.amazonSellingPrice"></label>
-                                        <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.amazonSellingPrice">
-                                    </td>
-                                    <td>
-                                        <label x-show="!d.IsEditing" x-text="d.percentageWithPriceAndProfit"></label>
-                                        <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.percentageWithPriceAndProfit">
-                                    </td>
-                                    <td>
-                                        <label x-show="!d.IsEditing" x-text="d.plusAmount"></label>
-                                        <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.plusAmount">
-                                    </td>
-                                    <td>
-                                        <label x-show="!d.IsEditing" x-text="d.minusAmount"></label>
-                                        <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.minusAmount">
-                                    </td>
-                                    <td>
-                                        <label x-show="!d.IsEditing" x-text="d.profitAmount"></label>
-                                        <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.profitAmount">
-                                    </td>
-                                    <td>
-                                        <a x-on:click="toggleIsEdit(d)" href="#" class="btn btn-icon btn-primary btn-sm"><i class="fas fa-edit fs-6"></i></a>
-                                        <a href="#" class="btn btn-icon btn-danger btn-sm"><i class="fas fa-remove fs-6"></i></a>
-                                    </td>
-                                </tr>
-                            </template>
+                        <template x-for="(d, index) in data">
+                            <tr>
+                                <td>
+                                    <label x-show="!d.IsEditing" x-text="d.amazonSellingPrice"></label>
+                                    <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.amazonSellingPrice">
+                                </td>
+                                <td>
+                                    <label x-show="!d.IsEditing" x-text="d.percentageWithPriceAndProfit"></label>
+                                    <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.percentageWithPriceAndProfit">
+                                </td>
+                                <td>
+                                    <label x-show="!d.IsEditing" x-text="d.plusAmount"></label>
+                                    <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.plusAmount">
+                                </td>
+                                <td>
+                                    <label x-show="!d.IsEditing" x-text="d.minusAmount"></label>
+                                    <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.minusAmount">
+                                </td>
+                                <td>
+                                    <label x-show="!d.IsEditing" x-text="d.profitAmount"></label>
+                                    <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.profitAmount">
+                                </td>
+                                <td>
+                                    <a x-on:click="toggleIsEdit(d)" href="#" class="btn btn-icon btn-primary btn-sm"><i class="fas fa-edit fs-6"></i></a>
+                                    <a href="#" class="btn btn-icon btn-danger btn-sm"><i class="fas fa-remove fs-6"></i></a>
+                                </td>
+                            </tr>
+                        </template>
 
                         </tbody>
                     </table>
@@ -191,6 +224,46 @@
                     this.fetchData();
                 }
 
+            }
+        }
+
+        function CalculatePrice() {
+            const createError = (status = 500, message = "an unknown error occurred") => {
+                const error = new Error(message);
+                error.status = status;
+
+                return error;
+            };
+            return {
+                gettingLoading: false,
+                price:0,
+                size:0,
+                weight:0,
+                result:0,
+                async fetchData() {
+                    this.gettingLoading = true;
+
+                    try {
+
+                        const url = `/Setting/CalculatePriceWithProfit?price=${this.price}&size=${this.size}&weight=${this.weight}`;
+                        const response = await fetch(url);
+
+                        if (!response.ok) {
+                            return createError(response.status, "error getting data");
+                        }
+
+                        const responseData = await response.json();
+                        console.log(responseData);
+
+                        this.result = responseData;
+
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    finally{
+                        this.gettingLoading = false;
+                    }
+                }
             }
         }
 
@@ -299,6 +372,8 @@
 
             }
         }
+  
+    
     </script>
 }
 

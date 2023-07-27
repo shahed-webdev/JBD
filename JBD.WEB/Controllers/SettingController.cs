@@ -67,4 +67,14 @@ public class SettingController : Controller
 
         return Json(result.Value);
     }
+
+    public async Task<IActionResult> CalculatePriceWithProfit(decimal price, decimal size, decimal weight)
+    {
+        var result = await _settingService.CalculatePriceWithProfitAsync(User.Identity?.Name, price,size, weight);
+
+        if (result.IsFailed)
+            return StatusCode(StatusCodes.Status500InternalServerError, result.Errors.First().Message);
+
+        return Json(result.Value);
+    }
 }

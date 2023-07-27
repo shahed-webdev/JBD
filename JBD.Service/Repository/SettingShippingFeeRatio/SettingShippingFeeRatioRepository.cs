@@ -45,14 +45,16 @@ public class SettingShippingFeeRatioRepository:BaseRepository<SettingShippingFee
     {
         var settingProfitBySize = await Context.SettingShippingFeeRatios.OrderBy(e=> e.Size)
             .Where(e => e.Size >= size && e.UserRegistrationId == userRegistrationId)
-            .FirstAsync();
-        var settingProfitByWeight = await Context.SettingShippingFeeRatios.OrderBy(e => e.Size)
+            .FirstOrDefaultAsync();
+       
+        var settingProfitByWeight = await Context.SettingShippingFeeRatios.OrderBy(e => e.Weight)
             .Where(e => e.Weight >= weight && e.UserRegistrationId == userRegistrationId)
-            .FirstAsync();
+            .FirstOrDefaultAsync();
+      
+        var settingProfitBySizeAmount = settingProfitBySize?.Amount ?? 0;
+        var settingProfitByWeightAmount = settingProfitByWeight?.Amount ?? 0;
 
-        var amount = settingProfitBySize.Amount > settingProfitByWeight.Amount
-            ? settingProfitBySize.Amount
-            : settingProfitByWeight.Amount;
+        var amount = settingProfitBySizeAmount > settingProfitByWeightAmount ? settingProfitBySizeAmount : settingProfitByWeightAmount;
 
         return amount;
 
