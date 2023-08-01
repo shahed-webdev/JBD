@@ -21,7 +21,7 @@
     <ul class="nav nav-tabs nav-pills flex-row border-0 flex-md-column me-5 mb-3 mb-md-0 fs-6 min-w-lg-200px col-md-2" role="tablist">
         <!--begin::Excluded: ASINs-->
         <li class="nav-item w-100" role="presentation">
-            <a class="nav-link w-100 btn btn-flex btn-active-light-success active" data-bs-toggle="tab" href="#kt_vtab_pane_1" aria-selected="false" role="tab" tabindex="-1">
+            <a id="@ExcludeKeywordType.Asin.ToString()" class="nav-link w-100 btn btn-flex btn-active-light-success active" data-bs-toggle="tab" href="#kt_vtab_pane_1" aria-selected="false" role="tab" tabindex="-1">
                 <span class="d-flex flex-column align-items-start">
                     <span class="fs-4 fw-bold">ASINs</span>
                     <span class="fs-7">Excluded Keyword</span>
@@ -31,7 +31,7 @@
         <!--end::Excluded: ASINs-->
         <!--begin::Excluded: product name-->
         <li class="nav-item w-100" role="presentation">
-            <a class="nav-link w-100 btn btn-flex btn-active-light-success" data-bs-toggle="tab" href="#kt_vtab_pane_2" aria-selected="false" role="tab" tabindex="-1">
+            <a id="@ExcludeKeywordType.ProductName.ToString()" class="nav-link w-100 btn btn-flex btn-active-light-success" data-bs-toggle="tab" href="#kt_vtab_pane_2" aria-selected="false" role="tab" tabindex="-1">
                 <span class="d-flex flex-column align-items-start">
                     <span class="fs-4 fw-bold">product name</span>
                     <span class="fs-7">Excluded Keyword</span>
@@ -41,7 +41,7 @@
         <!--end::Excluded: product name-->
         <!--begin::Excluded: Brand-->
         <li class="nav-item w-100" role="presentation">
-            <a class="nav-link w-100 btn btn-flex btn-active-light-success" data-bs-toggle="tab" href="#kt_vtab_pane_3" aria-selected="true" role="tab">
+            <a id="@ExcludeKeywordType.Brand.ToString()" class="nav-link w-100 btn btn-flex btn-active-light-success" data-bs-toggle="tab" href="#kt_vtab_pane_3" aria-selected="true" role="tab">
                 <span class="d-flex flex-column align-items-start">
                     <span class="fs-4 fw-bold">Brand</span>
                     <span class="fs-7">Excluded Keyword</span>
@@ -51,7 +51,7 @@
         <!--end::Excluded: Brand-->
         <!--begin::Excluded: Product Description-->
         <li class="nav-item w-100" role="presentation">
-            <a class="nav-link w-100 btn btn-flex btn-active-light-success" data-bs-toggle="tab" href="#kt_vtab_pane_4" aria-selected="true" role="tab">
+            <a id="@ExcludeKeywordType.ProductDescription.ToString()" class="nav-link w-100 btn btn-flex btn-active-light-success" data-bs-toggle="tab" href="#kt_vtab_pane_4" aria-selected="true" role="tab">
                 <span class="d-flex flex-column align-items-start">
                     <span class="fs-4 fw-bold">Product Description</span>
                     <span class="fs-7">Excluded Keyword</span>
@@ -61,7 +61,7 @@
         <!--end::Excluded: Product Description-->
         <!--begin::Excluded: Categories (Yahoo)-->
         <li class="nav-item w-100" role="presentation">
-            <a class="nav-link w-100 btn btn-flex btn-active-light-success" data-bs-toggle="tab" href="#kt_vtab_pane_5" aria-selected="true" role="tab">
+            <a id="@ExcludeKeywordType.YahooCategory.ToString()" class="nav-link w-100 btn btn-flex btn-active-light-success" data-bs-toggle="tab" href="#kt_vtab_pane_5" aria-selected="true" role="tab">
                 <span class="d-flex flex-column align-items-start">
                     <span class="fs-4 fw-bold">Categories (Yahoo)</span>
                     <span class="fs-7">Excluded Keyword</span>
@@ -159,8 +159,19 @@
     </div>
 </div>
 @section Scripts {
+    @*    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>*@
     @*<script src="myscript.js"></script>*@
     <script>
         // JavaScript code specific to this view
+
+        // Wait for the document to be ready
+        $(document).ready(function() {
+
+            const activeNav = '@TempData["ActiveTab"]';
+      
+            if (activeNav) {
+                $(`#${activeNav}`).tab('show');
+            }
+        });
     </script>
 }

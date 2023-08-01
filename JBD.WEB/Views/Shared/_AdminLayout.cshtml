@@ -67,4 +67,9 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 }*@
 
-@await RenderSectionAsync("Scripts", required: false)
+
+
+@section Scripts {
+    <!-- Put your scripts specific to _AdminLayout here -->
+    @await RenderSectionAsync("Scripts", required: false)
+}

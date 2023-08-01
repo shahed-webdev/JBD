@@ -32,6 +32,7 @@ public class SettingController : Controller
         var keys = keywords.Split('\n').ToList();
         var result = await _settingService.UpdateExcludeKeywordsByTypeAsync(User.Identity?.Name,type, keys);
 
+        TempData["ActiveTab"] = type.ToString();
 
         return RedirectToAction("Exclusion");
     }
