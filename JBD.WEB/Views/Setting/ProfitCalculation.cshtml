@@ -245,7 +245,7 @@
                                         <input type="number" x-model="formData.amount" class="form-control" required>
                                     </div>
                                     
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
                                 </form>
                             </div>
                         </div>
@@ -373,8 +373,41 @@
                     profitAmount:""
                 },
 
-                submitProfitSettingForm() {
+                async submitProfitSettingForm() {
                     console.log("Form submitted:", this.formData);
+                    const url = '@Url.Action("ProfitRatioAdd","Setting")';
+
+                  //  const { amazonSellingPrice, percentageWithPriceAndProfit, plusAmount, minusAmount, profitAmount } = this.formData;
+
+                    try {
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(this.formData)
+                        });
+
+
+                        if (!response.ok) {
+                            const responseData = await response.json();
+                            throw new Error(responseData.message);
+                        }
+
+
+                        $('#profitSettingModal').modal('hide');
+
+
+                        iziToast.success({
+                            title: 'Success',
+                            message: 'Profit Ratio was successfully submitted'
+                        });
+
+                        // get new data
+                        this.fetchData();
+
+                    } catch (error) {
+                        iziToast.error({ title: 'Error', message: error.message });
+                        console.error('An error occurred while sending the request:', error);
+                    }
                 },
 
                 async fetchData() {

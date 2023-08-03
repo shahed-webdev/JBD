@@ -1,5 +1,6 @@
 ﻿using JBD.DATA.Enums;
 using JBD.Service.Modules.Setting;
+using JBD.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JBD.WEB.Controllers;
@@ -46,6 +47,19 @@ public class SettingController : Controller
             return StatusCode(StatusCodes.Status500InternalServerError, result.Errors.First().Message);
 
         return Json(result.Value);
+    }
+
+    //POST: years from ajax
+    [HttpPost]
+    public async Task<IActionResult> ProfitRatioAdd([FromBody] SettingProfitRatioVM model)
+    {
+        if (model == null) return StatusCode(StatusCodes.Status400BadRequest, new { Message = "Invalid data" });
+
+        var addResult = await _settingService.AddSettingProfitRatioAsync(User.Identity?.Name, model);
+
+        if (addResult.IsSuccess) return StatusCode(StatusCodes.Status201Created);
+
+        return StatusCode(StatusCodes.Status400BadRequest, addResult.Errors[0]);
     }
 
 

@@ -38,6 +38,10 @@
         <link rel="stylesheet" type="text/css" href='@KTTheme.GetAssetPath(file)' />
     }
     <!--end::Custom Stylesheets-->
+    
+    <!--toast message-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" />
+
 </head>
 <!--end::Head-->
 
@@ -69,6 +73,10 @@
     {
     <script src='@KTTheme.GetAssetPath(file)'></script>
     }
+    
+    <!--toast message-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+
     <!--end::Custom Javascript-->
     @await RenderSectionAsync("Scripts", required: false)
 </!body>
