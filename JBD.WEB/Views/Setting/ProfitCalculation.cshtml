@@ -82,7 +82,7 @@
                     <span class="card-label fw-bold text-gray-800">
                         Profit setting - Profit ratio or profit amount
                     </span>
-                    <button data-bs-toggle="modal" data-bs-target="#profitSettingModal" class="btn btn-primary btn-sm" type="button">Add New</button>
+                    <button x-on:click="openModal" class="btn btn-primary btn-sm" type="button">Add New</button>
                 </div>
                           
                 
@@ -182,7 +182,7 @@
                     <span class="card-label fw-bold text-gray-800">
                         Shipping fee setting
                     </span>
-                    <button data-bs-toggle="modal" data-bs-target="#shippingSettingModal" class="btn btn-primary btn-sm" type="button">Add New</button>
+                    <button x-on:click="openShippingModal" class="btn btn-primary btn-sm" type="button">Add New</button>
                 </div>
 
                 <div class="table-responsive">
@@ -228,10 +228,10 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">Shipping fee setting</h5>
-                                <button type="button" x-on:click="closeModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form x-on:submit.prevent="submitProfitSettingForm">
+                                <form x-on:submit.prevent="submitShippingSettingForm">
                                     <div class="mb-3">
                                         <label class="form-label">Size</label>
                                         <input type="number" x-model="formData.Size" class="form-control" required>
@@ -245,7 +245,7 @@
                                         <input type="number" x-model="formData.amount" class="form-control" required>
                                     </div>
                                     
-                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>
                         </div>
@@ -362,6 +362,10 @@
                 return error;
             };
 
+
+            const profitSettingModal = new bootstrap.Modal(document.getElementById("profitSettingModal"));
+
+
             return {
                 gettingLoading: false,
                 data: [],
@@ -373,6 +377,10 @@
                     profitAmount:""
                 },
 
+                openModal(){
+                    profitSettingModal.show();
+                },
+   
                 async submitProfitSettingForm() {
                     console.log("Form submitted:", this.formData);
                     const url = '@Url.Action("ProfitRatioAdd","Setting")';
@@ -392,9 +400,7 @@
                             throw new Error(responseData.message);
                         }
 
-
-                        $('#profitSettingModal').modal('hide');
-
+                        profitSettingModal.hide();
 
                         iziToast.success({
                             title: 'Success',
@@ -403,12 +409,14 @@
 
                         // get new data
                         this.fetchData();
+               
 
                     } catch (error) {
                         iziToast.error({ title: 'Error', message: error.message });
                         console.error('An error occurred while sending the request:', error);
                     }
                 },
+
 
                 async fetchData() {
                     this.gettingLoading = true;
@@ -460,6 +468,8 @@
                 return error;
             };
 
+            const shippingSettingModal = new bootstrap.Modal(document.getElementById("shippingSettingModal"));
+
             return {
                 gettingLoading: false,
                 data: [],
@@ -469,8 +479,14 @@
                     Amount: ""
                 },
 
-                submitProfitSettingForm() {
+                openShippingModal(){
+                    shippingSettingModal.show();
+                },
+
+                submitShippingSettingForm() {
                     console.log("Form submitted:", this.formData);
+
+                    shippingSettingModal.hide()
                 },
 
                 async fetchData() {
