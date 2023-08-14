@@ -97,6 +97,19 @@ public class SettingController : Controller
         return StatusCode(StatusCodes.Status400BadRequest, addResult.Errors[0]);
     }
 
+    
+    [HttpPost]
+    public async Task<IActionResult> DeleteShippingFeeRatio(int id)
+    {
+        if (id == 0) return StatusCode(StatusCodes.Status400BadRequest, new { Message = "Invalid data" });
+
+        var addResult = await _settingService.DeleteSettingShippingFeeRatioAsync(User.Identity?.Name, id);
+
+        if (addResult.IsSuccess) return StatusCode(StatusCodes.Status202Accepted);
+
+        return StatusCode(StatusCodes.Status400BadRequest, addResult.Errors[0]);
+    }
+
     public async Task<IActionResult> GetProfitAmazon()
     {
         var result = await _settingService.GetSettingProfitAmazonAsync(User.Identity?.Name);

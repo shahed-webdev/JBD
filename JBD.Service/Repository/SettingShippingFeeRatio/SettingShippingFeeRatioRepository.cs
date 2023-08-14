@@ -85,7 +85,9 @@ public class SettingShippingFeeRatioRepository:BaseRepository<SettingShippingFee
     public async Task DeleteSettingShippingFeeRatioAsync(int userRegistrationId, int SettingShippingFeeRatioId)
     {
         var settingProfit = await GetSettingAsync(userRegistrationId, SettingShippingFeeRatioId);
-
+       
+        if (settingProfit == null) return;
+       
         Context.Remove(settingProfit);
 
         await Context.SaveChangesAsync();

@@ -130,8 +130,8 @@
                                         <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.profitAmount">
                                     </td>
                                     <td>
-                                        <a x-on:click="toggleIsEdit(d)" href="#" class="btn btn-icon btn-primary btn-sm"><i class="fas fa-edit fs-6"></i></a>
-                                        <a x-on:click="deleteProfitRatio(d)" href="#" class="btn btn-icon btn-danger btn-sm"><i class="fas fa-remove fs-6"></i></a>
+                                        <a x-on:click="toggleIsEdit(d)" class="btn btn-icon btn-primary btn-sm"><i class="fas fa-edit fs-6"></i></a>
+                                        <a x-show="!d.IsEditing" x-on:click="deleteProfitRatio(d)" class="btn btn-icon btn-danger btn-sm"><i class="fas fa-remove fs-6"></i></a>
                                     </td>
                                 </tr>
                             </template>
@@ -217,8 +217,8 @@
                                         <input x-show="d.IsEditing" type="number" class="w-50" x-model="d.amount">
                                     </td>
                                     <td>
-                                        <a x-on:click="toggleIsEdit(d)" href="#" class="btn btn-icon btn-primary btn-sm"><i class="fas fa-edit fs-6"></i></a>
-                                        <a href="#" class="btn btn-icon btn-danger btn-sm"><i class="fas fa-remove fs-6"></i></a>
+                                        <a x-on:click="toggleIsEdit(d)" class="btn btn-icon btn-primary btn-sm"><i class="fas fa-edit fs-6"></i></a>
+                                        <a x-show="!d.IsEditing" x-on:click="deleteShippingFeeRatio(d)" class="btn btn-icon btn-danger btn-sm"><i class="fas fa-remove fs-6"></i></a>
                                     </td>
                                 </tr>
                             </template>
@@ -621,6 +621,39 @@
                     }
                 },
 
+                async deleteShippingFeeRatio(row) {
+                    if (!row) {
+                        throw new Error("Invalid row data");
+                    }
+                    const url = `/Setting/DeleteShippingFeeRatio/${row.settingShippingFeeRatioId}`;
+
+                    try {
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                        });
+
+
+                        if (!response.ok) {
+                            const responseData = await response.json();
+                            throw new Error(responseData.message);
+                        }
+
+
+                        iziToast.success({
+                            title: 'Success',
+                            message: 'Shipping Fee Ratio was successfully Deleted'
+                        });
+
+                        // get new data
+                        this.fetchData();
+
+
+                    } catch (error) {
+                        iziToast.error({ title: 'Error', message: error.message });
+                        console.log('An error occurred while sending the request:', error);
+                    }
+                },
 
                 toggleIsEdit(row) {
                     console.log(row);
