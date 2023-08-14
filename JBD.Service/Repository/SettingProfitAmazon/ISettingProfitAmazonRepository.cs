@@ -6,6 +6,6 @@ namespace JBD.Service.Repository;
 
 public interface ISettingProfitAmazonRepository : IBaseRepository<SettingProfitAmazon>
 {
-    Task<SettingProfitAmazonVM> GetSettingProfitAmazonAsync(int userRegistrationId);
+    Task<SettingProfitAmazonVM?> GetSettingProfitAmazonAsync(int userRegistrationId);
     Task SetSettingProfitAmazonAsync(int userRegistrationId, SettingProfitAmazonVM model);
 }

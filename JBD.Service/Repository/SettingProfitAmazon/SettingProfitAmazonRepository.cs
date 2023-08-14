@@ -14,16 +14,16 @@ public class SettingProfitAmazonRepository : BaseRepository<SettingProfitAmazon>
         _mapper = mapper;
     }
 
-    public async Task<SettingProfitAmazonVM> GetSettingProfitAmazonAsync(int userRegistrationId)
+    public async Task<SettingProfitAmazonVM?> GetSettingProfitAmazonAsync(int userRegistrationId)
     {
         var settingAmazon = await GetSettingProfitAmazon(userRegistrationId);
-        
+
         return _mapper.Map<SettingProfitAmazonVM>(settingAmazon);
     }
 
-    private async Task<SettingProfitAmazon> GetSettingProfitAmazon(int userRegistrationId)
+    private async Task<SettingProfitAmazon?> GetSettingProfitAmazon(int userRegistrationId)
     {
-       return await Context.SettingProfitAmazons.Where(e => e.UserRegistrationId == userRegistrationId).FirstAsync();
+       return await Context.SettingProfitAmazons.Where(e => e.UserRegistrationId == userRegistrationId).FirstOrDefaultAsync();
     }
 
     public async Task SetSettingProfitAmazonAsync(int userRegistrationId, SettingProfitAmazonVM model)
@@ -33,6 +33,7 @@ public class SettingProfitAmazonRepository : BaseRepository<SettingProfitAmazon>
         if (settingAmazon == null)
         {
             var newSettingAmazon = _mapper.Map<SettingProfitAmazon>(model);
+            newSettingAmazon.UserRegistrationId = userRegistrationId;
             await Context.SettingProfitAmazons.AddAsync(newSettingAmazon);
         }
         else

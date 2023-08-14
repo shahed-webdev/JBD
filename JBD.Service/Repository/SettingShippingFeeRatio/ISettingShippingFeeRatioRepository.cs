@@ -11,4 +11,6 @@ public interface ISettingShippingFeeRatioRepository:IBaseRepository<SettingShipp
     Task AddSettingShippingFeeRatioAsync(int userRegistrationId, SettingShippingFeeRatioVM model);
     Task UpdateSettingShippingFeeRatioAsync(int userRegistrationId, SettingShippingFeeRatioVM model);
     Task DeleteSettingShippingFeeRatioAsync(int userRegistrationId, int settingShippingFeeRatioId);
+    Task<bool> IsSizeExistAsync(int userRegistrationId, decimal size);
+    Task<bool> IsWeightExistAsync(int userRegistrationId, decimal weight);
 }

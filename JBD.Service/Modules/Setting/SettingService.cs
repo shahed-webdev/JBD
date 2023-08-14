@@ -92,7 +92,9 @@ public class SettingService : ISettingService
 
             var settingAmazon = await _settingProfitAmazonRepository.GetSettingProfitAmazonAsync(userId);
 
-            return Result.Ok(settingAmazon);
+            if (settingAmazon == null) return Result.Fail($"Data not found");
+
+                return Result.Ok(settingAmazon);
         }
         catch (Exception e)
         {
@@ -162,6 +164,9 @@ public class SettingService : ISettingService
             var userId = await _userRegistrationRepository.GetUserRegistrationIdByUserNameAsync(userName);
 
             if (userId == 0) return Result.Fail($"Not a valid user");
+
+            var isPriceExist = await _settingProfitRatioRepository.IsPriceExistAsync(userId, model.AmazonSellingPrice);
+            if(isPriceExist) return Result.Fail($"{model.AmazonSellingPrice} this price already exist");
 
             await _settingProfitRatioRepository.AddSettingProfitRatioAsync(userId, model);
 
@@ -253,6 +258,12 @@ public class SettingService : ISettingService
 
             if (userId == 0) return Result.Fail($"Not a valid user");
 
+            var isSizeExist = await _settingShippingFeeRatioRepository.IsSizeExistAsync(userId, model.Size);
+            if (isSizeExist) return Result.Fail($"{model.Size} this size already exist");
+
+            var isWeightExist = await _settingShippingFeeRatioRepository.IsWeightExistAsync(userId, model.Weight);
+            if (isWeightExist) return Result.Fail($"{model.Size} this Weight already exist");
+
             await _settingShippingFeeRatioRepository.AddSettingShippingFeeRatioAsync(userId, model);
 
             return Result.Ok();
@@ -311,11 +322,15 @@ public class SettingService : ISettingService
 
             var amazonSetting = await _settingProfitAmazonRepository.GetSettingProfitAmazonAsync(userId);
 
+            if (amazonSetting == null) return Result.Fail("Amazon setting is not set");
+
             var settingProfitRatio = await _settingProfitRatioRepository.GetSettingProfitRatioByPriceAsync(userId, price);
+
+            if (settingProfitRatio == null) return Result.Fail("Profit setting is not set");
 
             var shippingFee = await _settingShippingFeeRatioRepository.GetSettingShippingFeeRatioByMeasurementAsync(userId, size, weight);
 
-            var commissionAmount = price * (amazonSetting.Commission / 100);
+            var commissionAmount = price * ( (amazonSetting?.Commission??0) / 100);
 
 
 

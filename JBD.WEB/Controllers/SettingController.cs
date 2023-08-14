@@ -49,7 +49,7 @@ public class SettingController : Controller
         return Json(result.Value);
     }
 
-    //POST: years from ajax
+    //POST: from ajax
     [HttpPost]
     public async Task<IActionResult> ProfitRatioAdd([FromBody] SettingProfitRatioVM model)
     {
@@ -62,6 +62,17 @@ public class SettingController : Controller
         return StatusCode(StatusCodes.Status400BadRequest, addResult.Errors[0]);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> DeleteProfitRatio(int id)
+    {
+        if (id == 0) return StatusCode(StatusCodes.Status400BadRequest, new { Message = "Invalid data" });
+
+        var addResult = await _settingService.DeleteSettingProfitRatioAsync(User.Identity?.Name, id);
+
+        if (addResult.IsSuccess) return StatusCode(StatusCodes.Status202Accepted);
+
+        return StatusCode(StatusCodes.Status400BadRequest, addResult.Errors[0]);
+    }
 
     public async Task<IActionResult> GetShippingFeeRatioList()
     {
@@ -73,6 +84,19 @@ public class SettingController : Controller
         return Json(result.Value);
     }
 
+    //POST: from ajax
+    [HttpPost]
+    public async Task<IActionResult> ShippingFeeRatioAdd([FromBody] SettingShippingFeeRatioVM model)
+    {
+        if (model == null) return StatusCode(StatusCodes.Status400BadRequest, new { Message = "Invalid data" });
+
+        var addResult = await _settingService.AddSettingShippingFeeRatioAsync(User.Identity?.Name, model);
+
+        if (addResult.IsSuccess) return StatusCode(StatusCodes.Status201Created);
+
+        return StatusCode(StatusCodes.Status400BadRequest, addResult.Errors[0]);
+    }
+
     public async Task<IActionResult> GetProfitAmazon()
     {
         var result = await _settingService.GetSettingProfitAmazonAsync(User.Identity?.Name);
@@ -82,13 +106,24 @@ public class SettingController : Controller
 
         return Json(result.Value);
     }
+    [HttpPost]
+    public async Task<IActionResult> SetSettingProfitAmazon([FromBody] SettingProfitAmazonVM model)
+    {
+        if (model == null) return StatusCode(StatusCodes.Status400BadRequest, new { Message = "Invalid data" });
+
+        var addResult = await _settingService.SetSettingProfitAmazonAsync(User.Identity?.Name, model);
+
+        if (addResult.IsSuccess) return StatusCode(StatusCodes.Status201Created);
+
+        return StatusCode(StatusCodes.Status400BadRequest, addResult.Errors[0]);
+    }
 
     public async Task<IActionResult> CalculatePriceWithProfit(decimal price, decimal size, decimal weight)
     {
         var result = await _settingService.CalculatePriceWithProfitAsync(User.Identity?.Name, price,size, weight);
 
         if (result.IsFailed)
-            return StatusCode(StatusCodes.Status500InternalServerError, result.Errors.First().Message);
+            return StatusCode(StatusCodes.Status500InternalServerError, result.Errors[0]);
 
         return Json(result.Value);
     }

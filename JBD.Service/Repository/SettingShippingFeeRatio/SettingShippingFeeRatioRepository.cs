@@ -90,4 +90,14 @@ public class SettingShippingFeeRatioRepository:BaseRepository<SettingShippingFee
 
         await Context.SaveChangesAsync();
     }
+
+    public Task<bool> IsSizeExistAsync(int userRegistrationId, decimal size)
+    {
+        return Context.SettingShippingFeeRatios.AnyAsync(e => e.Size == size && e.UserRegistrationId == userRegistrationId);
+    }
+
+    public Task<bool> IsWeightExistAsync(int userRegistrationId, decimal weight)
+    {
+        return Context.SettingShippingFeeRatios.AnyAsync(e => e.Weight == weight && e.UserRegistrationId == userRegistrationId);
+    }
 }

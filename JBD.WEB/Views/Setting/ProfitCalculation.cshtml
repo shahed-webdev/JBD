@@ -43,7 +43,13 @@
 <!-- Profit setting -->
 <div class="card">
     <div x-data="loadProfitAmazonData" class="card-body">
-        <span class="card-label fw-bold text-gray-800">Profit setting - Amazon points</span>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="card-label fw-bold text-gray-800">
+                Profit setting - Amazon points
+            </span>
+            <button x-on:click="submitProfitAmazonForm" class="btn btn-primary btn-sm" type="button">Save</button>
+        </div>
+
         <div class="row">
             <div class="col-lg-3">
                 <div class="form-floating mb-7">
@@ -125,7 +131,7 @@
                                     </td>
                                     <td>
                                         <a x-on:click="toggleIsEdit(d)" href="#" class="btn btn-icon btn-primary btn-sm"><i class="fas fa-edit fs-6"></i></a>
-                                        <a href="#" class="btn btn-icon btn-danger btn-sm"><i class="fas fa-remove fs-6"></i></a>
+                                        <a x-on:click="deleteProfitRatio(d)" href="#" class="btn btn-icon btn-danger btn-sm"><i class="fas fa-remove fs-6"></i></a>
                                     </td>
                                 </tr>
                             </template>
@@ -234,7 +240,7 @@
                                 <form x-on:submit.prevent="submitShippingSettingForm">
                                     <div class="mb-3">
                                         <label class="form-label">Size</label>
-                                        <input type="number" x-model="formData.Size" class="form-control" required>
+                                        <input type="number" x-model="formData.size" class="form-control" required>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Weight</label>
@@ -285,7 +291,6 @@
                         }
 
                         const responseData = await response.json();
-                        console.log(responseData);
 
                         this.data = responseData;
 
@@ -297,6 +302,38 @@
                     }
                 },
 
+                async submitProfitAmazonForm() {
+                    const url = '@Url.Action("SetSettingProfitAmazon","Setting")';
+
+                    //  const { amazonSellingPrice, percentageWithPriceAndProfit, plusAmount, minusAmount, profitAmount } = this.formData;
+
+                    try {
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(this.data)
+                        });
+
+
+                        if (!response.ok) {
+                            const responseData = await response.json();
+                            throw new Error(responseData.message);
+                        }
+
+                        iziToast.success({
+                            title: 'Success',
+                            message: 'Profit Ratio was successfully submitted'
+                        });
+
+                        // get new data
+                        this.fetchData();
+
+
+                    } catch (error) {
+                        iziToast.error({ title: 'Error', message: error.message });
+                        console.error('An error occurred while sending the request:', error);
+                    }
+                },
 
                 toggleIsEdit(row) {
                     console.log(row);
@@ -335,17 +372,25 @@
                         const url = `/Setting/CalculatePriceWithProfit?price=${this.price}&size=${this.size}&weight=${this.weight}`;
                         const response = await fetch(url);
 
+
                         if (!response.ok) {
-                            return createError(response.status, "error getting data");
+                            const responseData = await response.json();
+
+                            throw new Error(responseData.message);
                         }
 
                         const responseData = await response.json();
-                        console.log("CalculatePrice", responseData);
+                      
+                        this.result = 'The calculated selling price is ' + responseData;
 
-                        this.result = responseData;
+                        iziToast.success({
+                            title: 'Success',
+                            message: this.result
+                    });
 
                     } catch (error) {
-                        console.log(error);
+                        iziToast.error({ title: 'Error', message: error.message });
+                        console.error('An error occurred while sending the request:', error);
                     }
                     finally {
                         this.gettingLoading = false;
@@ -374,18 +419,17 @@
                     percentageWithPriceAndProfit: "",
                     plusAmount: "",
                     minusAmount: "",
-                    profitAmount:""
+                    profitAmount: ""
                 },
 
-                openModal(){
+                openModal() {
                     profitSettingModal.show();
                 },
-   
+
                 async submitProfitSettingForm() {
-                    console.log("Form submitted:", this.formData);
                     const url = '@Url.Action("ProfitRatioAdd","Setting")';
 
-                  //  const { amazonSellingPrice, percentageWithPriceAndProfit, plusAmount, minusAmount, profitAmount } = this.formData;
+                    //  const { amazonSellingPrice, percentageWithPriceAndProfit, plusAmount, minusAmount, profitAmount } = this.formData;
 
                     try {
                         const response = await fetch(url, {
@@ -409,7 +453,7 @@
 
                         // get new data
                         this.fetchData();
-               
+
 
                     } catch (error) {
                         iziToast.error({ title: 'Error', message: error.message });
@@ -429,7 +473,6 @@
                         }
 
                         const responseData = await response.json();
-                        console.log(responseData);
 
                         this.data = responseData.map(item => {
                             return {
@@ -446,6 +489,39 @@
                     }
                 },
 
+                async deleteProfitRatio(row) {
+                    if (!row) {
+                        throw new Error("Invalid row data");
+                    }
+                    const url = `/Setting/DeleteProfitRatio/${row.settingProfitRatioId}`;
+
+                    try {
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                        });
+
+
+                        if (!response.ok) {
+                            const responseData = await response.json();
+                            throw new Error(responseData.message);
+                        }
+
+
+                        iziToast.success({
+                            title: 'Success',
+                            message: 'Profit Ratio was successfully Deleted'
+                        });
+
+                        // get new data
+                        this.fetchData();
+
+
+                    } catch (error) {
+                        iziToast.error({ title: 'Error', message: error.message });
+                        console.log('An error occurred while sending the request:', error);
+                    }
+                },
 
                 toggleIsEdit(row) {
                     console.log(row);
@@ -473,20 +549,49 @@
             return {
                 gettingLoading: false,
                 data: [],
-                 formData: {
+                formData: {
                     size: "",
-                    Weight: "",
-                    Amount: ""
+                    weight: "",
+                    amount: ""
                 },
 
-                openShippingModal(){
+                openShippingModal() {
                     shippingSettingModal.show();
                 },
 
-                submitShippingSettingForm() {
-                    console.log("Form submitted:", this.formData);
+                async submitShippingSettingForm() {
+                    const url = '@Url.Action("ShippingFeeRatioAdd","Setting")';
+                    console.log(this.formData);
+                    //  const { amazonSellingPrice, percentageWithPriceAndProfit, plusAmount, minusAmount, profitAmount } = this.formData;
 
-                    shippingSettingModal.hide()
+                    try {
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(this.formData)
+                        });
+
+
+                        if (!response.ok) {
+                            const responseData = await response.json();
+                            throw new Error(responseData.message);
+                        }
+
+                        shippingSettingModal.hide();
+
+                        iziToast.success({
+                            title: 'Success',
+                            message: 'Shipping Fee Ratio was successfully submitted'
+                        });
+
+                        // get new data
+                        this.fetchData();
+
+
+                    } catch (error) {
+                        iziToast.error({ title: 'Error', message: error.message });
+                        console.error('An error occurred while sending the request:', error);
+                    }
                 },
 
                 async fetchData() {
@@ -500,7 +605,6 @@
                         }
 
                         const responseData = await response.json();
-                        console.log(responseData);
 
                         this.data = responseData.map(item => {
                             return {
@@ -530,5 +634,6 @@
 
             }
         }
+
     </script>
 }

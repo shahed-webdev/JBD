@@ -14,13 +14,13 @@ public class SettingProfitRatioRepository:BaseRepository<SettingProfitRatio>,ISe
     {
         _mapper = mapper;
     }
-    private async Task<SettingProfitRatio> GetSettingAsync(int userRegistrationId, int settingProfitRatioId)
+    private async Task<SettingProfitRatio?> GetSettingAsync(int userRegistrationId, int settingProfitRatioId)
     {
         var settingProfit = await Context.SettingProfitRatios
             .Where(e => e.SettingProfitRatioId == settingProfitRatioId && e.UserRegistrationId == userRegistrationId)
-            .FirstAsync();
+            .FirstOrDefaultAsync();
 
-        return settingProfit;
+        return settingProfit?? new SettingProfitRatio();
 
     }
 
@@ -44,8 +44,13 @@ public class SettingProfitRatioRepository:BaseRepository<SettingProfitRatio>,ISe
     {
         var settingProfit = await Context.SettingProfitRatios.OrderBy(e=> e.AmazonSellingPrice)
             .Where(e => e.AmazonSellingPrice >= price && e.UserRegistrationId == userRegistrationId)
-            .FirstAsync();
+            .FirstOrDefaultAsync();
         return _mapper.Map<SettingProfitRatioVM>(settingProfit);
+    }
+
+    public Task<bool> IsPriceExistAsync(int userRegistrationId, decimal price)
+    {
+       return  Context.SettingProfitRatios.AnyAsync(e => e.AmazonSellingPrice == price && e.UserRegistrationId == userRegistrationId);
     }
 
 
@@ -62,21 +67,25 @@ public class SettingProfitRatioRepository:BaseRepository<SettingProfitRatio>,ISe
     {
         var settingProfit = await GetSettingAsync(userRegistrationId, model.SettingProfitRatioId);
 
-        settingProfit.PercentageWithPriceAndProfit = model.PercentageWithPriceAndProfit;
-        settingProfit.AmazonSellingPrice = model.AmazonSellingPrice;
-        settingProfit.PlusAmount = model.PlusAmount;
-        settingProfit.ProfitAmount = model.ProfitAmount;
-        settingProfit.MinusAmount = model.MinusAmount;
-
-        await Context.SaveChangesAsync();
-
+        if (settingProfit != null)
+        {
+            settingProfit.PercentageWithPriceAndProfit = model.PercentageWithPriceAndProfit;
+            settingProfit.AmazonSellingPrice = model.AmazonSellingPrice;
+            settingProfit.PlusAmount = model.PlusAmount;
+            settingProfit.ProfitAmount = model.ProfitAmount;
+            settingProfit.MinusAmount = model.MinusAmount;
+        
+            await Context.SaveChangesAsync();
+        }
     }
 
     public async Task DeleteSettingProfitRatioAsync(int userRegistrationId, int settingProfitRatioId)
     {
         var settingProfit = await GetSettingAsync(userRegistrationId, settingProfitRatioId);
+        
+        if(settingProfit == null) return;
 
-        Context.Remove(settingProfit);
+        Context.SettingProfitRatios.Remove(settingProfit);
 
        await Context.SaveChangesAsync();
     }
