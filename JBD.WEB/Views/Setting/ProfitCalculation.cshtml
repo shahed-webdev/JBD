@@ -523,8 +523,39 @@
                     }
                 },
 
-                toggleIsEdit(row) {
-                    console.log(row);
+                async  toggleIsEdit(row) {
+                    if (row.IsEditing) {
+                        const url = '@Url.Action("UpdateSettingProfitRatio","Setting")';
+
+                        //  const { amazonSellingPrice, percentageWithPriceAndProfit, plusAmount, minusAmount, profitAmount } = this.formData;
+
+                        try {
+                            const response = await fetch(url, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(row)
+                            });
+
+
+                            if (!response.ok) {
+                                const responseData = await response.json();
+                                throw new Error(responseData.message);
+                            }
+
+                            iziToast.success({
+                                title: 'Success',
+                                message: 'Profit Ratio was successfully updated'
+                            });
+
+                            // get new data
+                            this.fetchData();
+
+
+                        } catch (error) {
+                            iziToast.error({ title: 'Error', message: error.message });
+                            console.error('An error occurred while sending the request:', error);
+                        }
+                    }
                     row.IsEditing = !row.IsEditing;
 
                 },
@@ -655,8 +686,39 @@
                     }
                 },
 
-                toggleIsEdit(row) {
-                    console.log(row);
+                async  toggleIsEdit(row) {
+                    if (row.IsEditing) {
+                        const url = '@Url.Action("UpdateSettingShippingFeeRatio","Setting")';
+
+                        //  const { amazonSellingPrice, percentageWithPriceAndProfit, plusAmount, minusAmount, profitAmount } = this.formData;
+
+                        try {
+                            const response = await fetch(url, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(row)
+                            });
+
+
+                            if (!response.ok) {
+                                const responseData = await response.json();
+                                throw new Error(responseData.message);
+                            }
+
+                            iziToast.success({
+                                title: 'Success',
+                                message: 'Shipping Fee Ratio was successfully updated'
+                            });
+
+                            // get new data
+                            this.fetchData();
+
+
+                        } catch (error) {
+                            iziToast.error({ title: 'Error', message: error.message });
+                            console.error('An error occurred while sending the request:', error);
+                        }
+                    }
                     row.IsEditing = !row.IsEditing;
 
                 },

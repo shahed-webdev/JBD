@@ -73,8 +73,10 @@ public class SettingShippingFeeRatioRepository:BaseRepository<SettingShippingFee
     public async Task UpdateSettingShippingFeeRatioAsync(int userRegistrationId, SettingShippingFeeRatioVM model)
     {
         var settingProfit = await GetSettingAsync(userRegistrationId, model.SettingShippingFeeRatioId);
+       
+        if (settingProfit == null) return;
 
-       settingProfit.Amount = model.Amount;
+        settingProfit.Amount = model.Amount;
        settingProfit.Size   = model.Size;
        settingProfit.Weight = model.Weight;
 

@@ -62,6 +62,21 @@ public class SettingController : Controller
         return StatusCode(StatusCodes.Status400BadRequest, addResult.Errors[0]);
     }
 
+    //POST: from ajax
+    [HttpPost]
+    public async Task<IActionResult> UpdateSettingProfitRatio([FromBody] SettingProfitRatioVM model)
+    {
+        if (model == null) return StatusCode(StatusCodes.Status400BadRequest, new { Message = "Invalid data" });
+
+        var addResult = await _settingService.UpdateSettingProfitRatioAsync(User.Identity?.Name, model);
+
+        if (addResult.IsSuccess) return StatusCode(StatusCodes.Status202Accepted);
+
+        return StatusCode(StatusCodes.Status400BadRequest, addResult.Errors[0]);
+    }
+
+    
+
     [HttpPost]
     public async Task<IActionResult> DeleteProfitRatio(int id)
     {
@@ -96,8 +111,18 @@ public class SettingController : Controller
 
         return StatusCode(StatusCodes.Status400BadRequest, addResult.Errors[0]);
     }
+    [HttpPost]
+    public async Task<IActionResult> UpdateSettingShippingFeeRatio([FromBody] SettingShippingFeeRatioVM model)
+    {
+        if (model == null) return StatusCode(StatusCodes.Status400BadRequest, new { Message = "Invalid data" });
 
-    
+        var addResult = await _settingService.UpdateSettingShippingFeeRatioAsync(User.Identity?.Name, model);
+
+        if (addResult.IsSuccess) return StatusCode(StatusCodes.Status201Created);
+
+        return StatusCode(StatusCodes.Status400BadRequest, addResult.Errors[0]);
+    }
+
     [HttpPost]
     public async Task<IActionResult> DeleteShippingFeeRatio(int id)
     {
